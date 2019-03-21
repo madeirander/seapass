@@ -1,5 +1,6 @@
 import Home from './Home';
-import SectionOne from './SectionOne';
-import SectionTwo from './SectionTwo';
+import EntryDetail from './EntryDetail';
+import Sidebar from './Sidebar';
+import LocationHeader from './LocationHeader';
 
-export { Home, SectionOne, SectionTwo };
+export { Home, EntryDetail, Sidebar, LocationHeader };
