@@ -1,5 +1,5 @@
 import React from 'react';
-import { Layout, Menu, Icon } from 'antd';
+import { Layout, Menu, Icon, Button } from 'antd';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import ScrollView from './ScrollView';
@@ -35,7 +35,17 @@ export default function Sidebar(props) {
   return (
     <Sider className="sidebar" width={250} style={{ background: '#fff' }}>
       <ScrollView style={{ height: '100%', borderRight: 0 }}>
-        <Menu mode="inline" defaultSelectedKeys={['1']} defaultOpenKeys={['sub1']}>
+        <div style={{ padding: 5, margin: 5 }}>
+          <Button type="dashed" icon="plus" size="small" block>
+            Add New
+          </Button>
+        </div>
+        <Menu
+          style={{ borderRight: 0 }}
+          mode="inline"
+          defaultSelectedKeys={['1']}
+          defaultOpenKeys={['sub1']}
+        >
           {items}
         </Menu>
       </ScrollView>
