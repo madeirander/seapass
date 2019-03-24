@@ -1,35 +1,15 @@
 import React from 'react';
-import { Layout, Menu, Icon, Button } from 'antd';
-import { Link } from 'react-router-dom';
+import { Layout, Menu, Button } from 'antd';
 import PropTypes from 'prop-types';
 import ScrollView from './ScrollView';
+import MenuCategory from './MenuCategory';
 
-const { SubMenu } = Menu;
 const { Sider } = Layout;
 
 export default function Sidebar(props) {
   const { menuItems } = props;
-  const items = menuItems.map(item => {
-    const subItems = item.entries.map(sub => {
-      return (
-        <Menu.Item key={sub.id}>
-          <Link to={`/entry/${sub.id}`}>{sub.name}</Link>
-        </Menu.Item>
-      );
-    });
-    return (
-      <SubMenu
-        key={item.id}
-        title={
-          <span>
-            <Icon type="user" />
-            {item.name}
-          </span>
-        }
-      >
-        {subItems}
-      </SubMenu>
-    );
+  const items = menuItems.map(cat => {
+    return <MenuCategory category={cat} />;
   });
 
   return (
