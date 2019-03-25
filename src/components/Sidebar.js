@@ -1,5 +1,5 @@
 import React from 'react';
-import { Layout, Menu, Button } from 'antd';
+import { Layout, Menu, Button, Icon } from 'antd';
 import PropTypes from 'prop-types';
 import ScrollView from './ScrollView';
 import MenuCategory from './MenuCategory';
@@ -9,8 +9,16 @@ const { Sider } = Layout;
 export default function Sidebar(props) {
   const { menuItems } = props;
   const items = menuItems.map(cat => {
-    return <MenuCategory category={cat} />;
+    return <MenuCategory key={cat.id} category={cat} />;
   });
+
+  if (items.length === 0) {
+    items.unshift(
+      <Menu.Item disabled key="key">
+        <Icon type="exclamation" /> No entries found
+      </Menu.Item>
+    );
+  }
 
   return (
     <Sider className="sidebar" width={250} style={{ background: '#fff' }}>

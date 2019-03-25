@@ -27,7 +27,7 @@ export default class MenuCategory extends Component {
     const { isOpen } = this.state;
     const folderIcon = isOpen ? 'folder-open' : 'folder';
     const subItems = category.entries.map(sub => {
-      return <MenuEntry entry={sub} />;
+      return <MenuEntry key={sub.id} entry={sub} />;
     });
     return (
       <SubMenu
