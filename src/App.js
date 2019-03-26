@@ -75,11 +75,11 @@ const MenuItems = [
 function App() {
   return (
     <Router>
-      <Layout className="main-wrapper">
+      <Layout style={{ height: '100vh' }}>
         <Sidebar menuItems={MenuItems} />
-        <Layout className="content-wrapper">
+        <Layout style={{ padding: '0 24px 24px' }}>
           <LocationHeader />
-          <Content className="main-content">
+          <Content style={{ background: '#fff', padding: 24, margin: 0, minHeight: 280 }}>
             <Route exact path="/" component={Home} />
             <Route path="/entry/:id" component={EntryDetail} />
           </Content>
