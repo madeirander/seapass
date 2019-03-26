@@ -1,8 +1,7 @@
 import React from 'react';
 import { Layout } from 'antd';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { HashRouter as Router, Route } from 'react-router-dom';
 import { Home, Sidebar, LocationHeader, EntryDetail } from './components';
-import './App.css';
 
 const { Content } = Layout;
 
