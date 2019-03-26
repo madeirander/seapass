@@ -20,7 +20,7 @@ self.__precacheManifest = [
     "url": "/seapass/static/css/2.479de048.chunk.css"
   },
   {
-    "revision": "6c52a5f2788b09d19ed52e7b17afa798",
+    "revision": "5f9241f3237fee500ae56597aaea4204",
     "url": "/seapass/index.html"
   }
 ];
