@@ -15,19 +15,23 @@ export default class MenuCategory extends Component {
   }
 
   handleTitleClick() {
+    const { category, handleSubMenuClicked } = this.props;
+
     this.setState(prevState => {
       return {
         isOpen: !prevState.isOpen,
       };
     });
+
+    handleSubMenuClicked(`c${category.id}`);
   }
 
   render() {
-    const { category, isSubMenuSelected, ...otherProps } = this.props;
+    const { category, isSubMenuSelected, handleSubMenuClicked, ...otherProps } = this.props;
     const { isOpen } = this.state;
     const folderIcon = isOpen ? 'folder-open' : 'folder';
-    const subItems = category.entries.map(sub => {
-      return <MenuEntry key={`e${sub.id}`} entry={sub} />;
+    const subItems = category.entries.map(cat => {
+      return <MenuEntry key={`e${cat.id}`} entry={cat} />;
     });
     return (
       <SubMenu
@@ -47,6 +51,7 @@ export default class MenuCategory extends Component {
 }
 
 MenuCategory.propTypes = {
+  handleSubMenuClicked: PropTypes.func.isRequired,
   category: PropTypes.shape({
     id: PropTypes.number.isRequired,
     name: PropTypes.string.isRequired,

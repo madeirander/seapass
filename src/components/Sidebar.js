@@ -7,61 +7,106 @@ import MenuCategory from './MenuCategory';
 
 const { Sider } = Layout;
 
-function extractSelectedFromPath(path) {
-  if (path.indexOf('entry') === -1) return { entry: '', category: '' };
-
-  const pathArray = path.split('/');
-
-  const entry = parseInt(pathArray[[pathArray.length - 1]], 10);
-  const category = parseInt(pathArray[[pathArray.length - 2]], 10);
-
-  return { entry, category };
+function getEntryIdFromPath(path) {
+  return path.indexOf('entry') !== -1
+    ? parseInt(path.split('/')[[path.split('/').length - 1]], 10)
+    : 0;
 }
 
-function Sidebar(props) {
-  const { menuItems, location } = props;
-  const selectedIds = extractSelectedFromPath(location.pathname);
+function getCategoryIdFromPath(path) {
+  return path.indexOf('entry') !== -1
+    ? parseInt(path.split('/')[[path.split('/').length - 2]], 10)
+    : 0;
+}
 
-  console.log('Selected Ids:', selectedIds);
+class Sidebar extends React.Component {
+  constructor(props) {
+    super(props);
 
-  const selectedEntry = selectedIds.entry !== 0 ? [`e${selectedIds.entry}`] : [];
-  const selectedCategory = selectedIds.category !== 0 ? [`c${selectedIds.category}`] : [];
+    const pathEntryId = getEntryIdFromPath(props.location.pathname);
+    const pathCategoryId = getCategoryIdFromPath(props.location.pathname);
 
-  const items = menuItems.map(cat => {
-    const isSubMenuSelected = selectedIds.category === cat.id;
-    console.log(selectedIds.category, cat.id, selectedIds.category === cat.id);
-    return <MenuCategory key={`c${cat.id}`} category={cat} isSubMenuSelected={isSubMenuSelected} />;
-  });
+    this.state = {
+      activeEntry: pathEntryId,
+      activeCategory: pathCategoryId,
+      activeSubMenuKeys: pathCategoryId !== 0 ? [`c${pathCategoryId}`] : [],
+    };
 
-  if (items.length === 0) {
-    items.unshift(
-      <Menu.Item disabled key="0">
-        <Icon type="exclamation" /> No entries found
-      </Menu.Item>
-    );
+    this.handleSubMenuClicked = this.handleSubMenuClicked.bind(this);
+    this.onAddEntryClicked = this.onAddEntryClicked.bind(this);
   }
 
-  return (
-    <Sider className="sidebar" width={250} style={{ background: '#fff' }}>
-      <ScrollView style={{ height: '100%', borderRight: 0 }}>
-        <div style={{ padding: 5, margin: 5 }}>
-          <Link to="/new">
-            <Button type="dashed" icon="plus" size="small" block>
-              Add New
-            </Button>
-          </Link>
-        </div>
-        <Menu
-          defaultSelectedKeys={selectedEntry}
-          defaultOpenKeys={selectedCategory}
-          style={{ borderRight: 0 }}
-          mode="inline"
-        >
-          {items}
-        </Menu>
-      </ScrollView>
-    </Sider>
-  );
+  onAddEntryClicked() {
+    this.setState({ activeEntry: 0, activeCategory: 0, activeSubMenuKeys: [] });
+  }
+
+  handleSubMenuClicked(subMenuKey) {
+    console.log('Clicked', subMenuKey);
+    this.setState(prevState => {
+      const { activeSubMenuKeys } = prevState;
+      const indexOf = activeSubMenuKeys.indexOf(subMenuKey);
+
+      if (indexOf === -1) {
+        activeSubMenuKeys.push(subMenuKey);
+      } else {
+        activeSubMenuKeys.splice(indexOf, 1);
+      }
+
+      return { activeSubMenuKeys };
+    });
+  }
+
+  render() {
+    const { activeEntry, activeCategory, activeSubMenuKeys } = this.state;
+    const { menuItems } = this.props;
+
+    console.log('activeEntry:', activeEntry);
+    console.log('activeCategory:', activeCategory);
+    console.log('activeSubMenuKeys', activeSubMenuKeys);
+
+    const items = menuItems.map(cat => {
+      const isSubMenuSelected = activeSubMenuKeys.indexOf(`c${cat.id}`) !== -1;
+      console.log(activeCategory, cat.id, isSubMenuSelected);
+      return (
+        <MenuCategory
+          key={`c${cat.id}`}
+          category={cat}
+          isSubMenuSelected={isSubMenuSelected}
+          handleSubMenuClicked={this.handleSubMenuClicked}
+        />
+      );
+    });
+
+    if (items.length === 0) {
+      items.unshift(
+        <Menu.Item disabled key="0">
+          <Icon type="exclamation" /> No entries found
+        </Menu.Item>
+      );
+    }
+
+    return (
+      <Sider className="sidebar" width={250} style={{ background: '#fff' }}>
+        <ScrollView style={{ height: '100%', borderRight: 0 }}>
+          <div style={{ padding: 5, margin: 5 }}>
+            <Link to="/new">
+              <Button onClick={this.onAddEntryClicked} type="dashed" icon="plus" size="small" block>
+                Add New
+              </Button>
+            </Link>
+          </div>
+          <Menu
+            defaultSelectedKeys={[`e${activeEntry}`]}
+            openKeys={activeSubMenuKeys}
+            style={{ borderRight: 0 }}
+            mode="inline"
+          >
+            {items}
+          </Menu>
+        </ScrollView>
+      </Sider>
+    );
+  }
 }
 
 Sidebar.propTypes = {
