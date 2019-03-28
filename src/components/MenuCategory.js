@@ -27,11 +27,10 @@ export default class MenuCategory extends Component {
     const { isOpen } = this.state;
     const folderIcon = isOpen ? 'folder-open' : 'folder';
     const subItems = category.entries.map(sub => {
-      return <MenuEntry key={sub.id} entry={sub} />;
+      return <MenuEntry key={`e${sub.id}`} entry={sub} />;
     });
     return (
       <SubMenu
-        key={category.id}
         title={
           <span>
             <Icon type={folderIcon} />
@@ -54,6 +53,7 @@ MenuCategory.propTypes = {
     entries: PropTypes.arrayOf(
       PropTypes.shape({
         id: PropTypes.number.isRequired,
+        catId: PropTypes.number.isRequired,
         name: PropTypes.string.isRequired,
         link: PropTypes.string.isRequired,
       })

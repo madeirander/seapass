@@ -1,69 +1,78 @@
 import React from 'react';
 import { Layout } from 'antd';
 import { HashRouter as Router, Route } from 'react-router-dom';
-import { Home, Sidebar, LocationHeader, EntryDetail } from './components';
+import { Home, Sidebar, LocationHeader, EntryDetail, NewEntry } from './components';
 
 const { Content } = Layout;
 
 const MenuItems = [
   {
-    id: 11,
+    id: 1,
     name: 'CategoryOne',
     entries: [
       {
         id: 1,
+        catId: 1,
         name: 'EntryOne',
         link: 'one',
       },
       {
         id: 2,
+        catId: 1,
         name: 'EntryTwo',
         link: 'two',
       },
       {
         id: 3,
+        catId: 1,
         name: 'EntryThree',
         link: 'three',
       },
     ],
   },
   {
-    id: 22,
+    id: 2,
     name: 'CategoryTwo',
     entries: [
       {
         id: 4,
+        catId: 2,
         name: 'EntryFour',
         link: 'four',
       },
       {
         id: 5,
+        catId: 2,
         name: 'EntryFive',
         link: 'five',
       },
       {
         id: 6,
+        catId: 2,
         name: 'EntrySix',
         link: 'six',
       },
     ],
   },
   {
-    id: 33,
+    id: 3,
     name: 'CategoryThree',
     entries: [
       {
         id: 7,
+        catId: 3,
         name: 'EntrySeven',
         link: 'seven',
       },
       {
         id: 8,
+        catId: 3,
         name: 'EntryEight',
         link: 'eight',
       },
       {
         id: 9,
+        catId: 3,
         name: 'EntryNine',
         link: 'nine',
       },
@@ -80,7 +89,8 @@ function App() {
           <LocationHeader />
           <Content style={{ background: '#fff', padding: 24, margin: 0, minHeight: 280 }}>
             <Route exact path="/" component={Home} />
-            <Route path="/entry/:id" component={EntryDetail} />
+            <Route path="/new" component={NewEntry} />
+            <Route path="/entry/:cat/:id" component={EntryDetail} />
           </Content>
         </Layout>
       </Layout>
