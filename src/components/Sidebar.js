@@ -8,21 +8,29 @@ import MenuCategory from './MenuCategory';
 const { Sider } = Layout;
 
 function extractSelectedFromPath(path) {
-  if (path.indexOf('entry') === -1) return { entry: 0, category: 0 };
+  if (path.indexOf('entry') === -1) return { entry: '', category: '' };
 
   const pathArray = path.split('/');
 
-  const entry = pathArray[[pathArray.length - 1]];
-  const category = pathArray[[pathArray.length - 2]];
+  const entry = parseInt(pathArray[[pathArray.length - 1]], 10);
+  const category = parseInt(pathArray[[pathArray.length - 2]], 10);
 
   return { entry, category };
 }
 
 function Sidebar(props) {
   const { menuItems, location } = props;
-  const selected = extractSelectedFromPath(location.pathname);
+  const selectedIds = extractSelectedFromPath(location.pathname);
+
+  console.log('Selected Ids:', selectedIds);
+
+  const selectedEntry = selectedIds.entry !== 0 ? [`e${selectedIds.entry}`] : [];
+  const selectedCategory = selectedIds.category !== 0 ? [`c${selectedIds.category}`] : [];
+
   const items = menuItems.map(cat => {
-    return <MenuCategory key={`c${cat.id}`} category={cat} />;
+    const isSubMenuSelected = selectedIds.category === cat.id;
+    console.log(selectedIds.category, cat.id, selectedIds.category === cat.id);
+    return <MenuCategory key={`c${cat.id}`} category={cat} isSubMenuSelected={isSubMenuSelected} />;
   });
 
   if (items.length === 0) {
@@ -44,8 +52,8 @@ function Sidebar(props) {
           </Link>
         </div>
         <Menu
-          defaultSelectedKeys={[`e${selected.entry}`]}
-          defaultOpenKeys={[`c${selected.category}`]}
+          defaultSelectedKeys={selectedEntry}
+          defaultOpenKeys={selectedCategory}
           style={{ borderRight: 0 }}
           mode="inline"
         >

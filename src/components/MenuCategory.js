@@ -9,7 +9,7 @@ export default class MenuCategory extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      isOpen: false,
+      isOpen: props.isSubMenuSelected !== undefined ? props.isSubMenuSelected : false,
     };
     this.handleTitleClick = this.handleTitleClick.bind(this);
   }
@@ -23,7 +23,7 @@ export default class MenuCategory extends Component {
   }
 
   render() {
-    const { category, ...otherProps } = this.props;
+    const { category, isSubMenuSelected, ...otherProps } = this.props;
     const { isOpen } = this.state;
     const folderIcon = isOpen ? 'folder-open' : 'folder';
     const subItems = category.entries.map(sub => {
