@@ -50,6 +50,8 @@ class Sidebar extends React.Component {
     const { activeSubMenuKeys } = this.state;
     const { menuItems, location } = this.props;
 
+    console.log('activeSubMenuKeys', activeSubMenuKeys);
+
     const items = menuItems.map(cat => {
       const isSubMenuOpen = activeSubMenuKeys.indexOf(`c${cat.id}`) !== -1;
 
