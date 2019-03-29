@@ -8,9 +8,11 @@ const { SubMenu } = Menu;
 export default class MenuCategory extends Component {
   constructor(props) {
     super(props);
+
     this.state = {
-      isOpen: props.isSubMenuSelected !== undefined ? props.isSubMenuSelected : false,
+      isOpen: props.isSubMenuOpen !== undefined ? props.isSubMenuOpen : false,
     };
+
     this.handleTitleClick = this.handleTitleClick.bind(this);
   }
 
@@ -27,11 +29,11 @@ export default class MenuCategory extends Component {
   }
 
   render() {
-    const { category, isSubMenuSelected, handleSubMenuClicked, ...otherProps } = this.props;
+    const { category, isSubMenuOpen, handleSubMenuClicked, ...otherProps } = this.props;
     const { isOpen } = this.state;
-    const folderIcon = isOpen ? 'folder-open' : 'folder';
-    const subItems = category.entries.map(cat => {
-      return <MenuEntry key={`e${cat.id}`} entry={cat} />;
+    const folderIcon = isOpen && isSubMenuOpen ? 'folder-open' : 'folder';
+    const subItems = category.entries.map(entry => {
+      return <MenuEntry key={`/entry/${entry.catId}/${entry.id}`} entry={entry} />;
     });
     return (
       <SubMenu

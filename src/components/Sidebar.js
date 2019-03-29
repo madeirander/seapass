@@ -7,12 +7,6 @@ import MenuCategory from './MenuCategory';
 
 const { Sider } = Layout;
 
-function getEntryIdFromPath(path) {
-  return path.indexOf('entry') !== -1
-    ? parseInt(path.split('/')[[path.split('/').length - 1]], 10)
-    : 0;
-}
-
 function getCategoryIdFromPath(path) {
   return path.indexOf('entry') !== -1
     ? parseInt(path.split('/')[[path.split('/').length - 2]], 10)
@@ -23,12 +17,9 @@ class Sidebar extends React.Component {
   constructor(props) {
     super(props);
 
-    const pathEntryId = getEntryIdFromPath(props.location.pathname);
     const pathCategoryId = getCategoryIdFromPath(props.location.pathname);
 
     this.state = {
-      activeEntry: pathEntryId,
-      activeCategory: pathCategoryId,
       activeSubMenuKeys: pathCategoryId !== 0 ? [`c${pathCategoryId}`] : [],
     };
 
@@ -37,11 +28,10 @@ class Sidebar extends React.Component {
   }
 
   onAddEntryClicked() {
-    this.setState({ activeEntry: 0, activeCategory: 0, activeSubMenuKeys: [] });
+    this.setState({ activeSubMenuKeys: [] });
   }
 
   handleSubMenuClicked(subMenuKey) {
-    console.log('Clicked', subMenuKey);
     this.setState(prevState => {
       const { activeSubMenuKeys } = prevState;
       const indexOf = activeSubMenuKeys.indexOf(subMenuKey);
@@ -57,21 +47,17 @@ class Sidebar extends React.Component {
   }
 
   render() {
-    const { activeEntry, activeCategory, activeSubMenuKeys } = this.state;
-    const { menuItems } = this.props;
-
-    console.log('activeEntry:', activeEntry);
-    console.log('activeCategory:', activeCategory);
-    console.log('activeSubMenuKeys', activeSubMenuKeys);
+    const { activeSubMenuKeys } = this.state;
+    const { menuItems, location } = this.props;
 
     const items = menuItems.map(cat => {
-      const isSubMenuSelected = activeSubMenuKeys.indexOf(`c${cat.id}`) !== -1;
-      console.log(activeCategory, cat.id, isSubMenuSelected);
+      const isSubMenuOpen = activeSubMenuKeys.indexOf(`c${cat.id}`) !== -1;
+
       return (
         <MenuCategory
           key={`c${cat.id}`}
           category={cat}
-          isSubMenuSelected={isSubMenuSelected}
+          isSubMenuOpen={isSubMenuOpen}
           handleSubMenuClicked={this.handleSubMenuClicked}
         />
       );
@@ -96,7 +82,7 @@ class Sidebar extends React.Component {
             </Link>
           </div>
           <Menu
-            defaultSelectedKeys={[`e${activeEntry}`]}
+            selectedKeys={[location.pathname]}
             openKeys={activeSubMenuKeys}
             style={{ borderRight: 0 }}
             mode="inline"
