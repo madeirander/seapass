@@ -1,12 +1,15 @@
-/* eslint react/prop-types: 0 */
-
 import React from 'react';
 import EntryForm from './EntryForm';
+import { getEntry } from '../database';
 
 export default function EntryDetail({ match }) {
+  const { categoryId, entryId } = match.params;
+  console.log('categoryId, entryId', categoryId, entryId);
+  const entry = getEntry(categoryId, entryId);
+  console.log('entry: ', entry);
   return (
     <div>
-      <h3>Entry Detail for: {match.params.id}</h3>
+      <h3>{entry.name}</h3>
       <EntryForm />
     </div>
   );

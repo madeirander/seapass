@@ -4,6 +4,7 @@ import { Layout, Menu, Button, Icon } from 'antd';
 import PropTypes from 'prop-types';
 import ScrollView from './ScrollView';
 import MenuCategory from './MenuCategory';
+import db from '../database';
 
 const { Sider } = Layout;
 
@@ -27,6 +28,10 @@ class Sidebar extends React.Component {
     this.onAddEntryClicked = this.onAddEntryClicked.bind(this);
   }
 
+  componentWillMount() {
+    this.categories = db.get('categories').value();
+  }
+
   onAddEntryClicked() {
     this.setState({ activeSubMenuKeys: [] });
   }
@@ -48,11 +53,11 @@ class Sidebar extends React.Component {
 
   render() {
     const { activeSubMenuKeys } = this.state;
-    const { menuItems, location } = this.props;
+    const { location } = this.props;
 
     console.log('activeSubMenuKeys', activeSubMenuKeys);
 
-    const items = menuItems.map(cat => {
+    const items = this.categories.map(cat => {
       const isSubMenuOpen = activeSubMenuKeys.indexOf(`c${cat.id}`) !== -1;
 
       return (
@@ -101,19 +106,6 @@ Sidebar.propTypes = {
   location: PropTypes.shape({
     pathname: PropTypes.string.isRequired,
   }).isRequired,
-  menuItems: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.number.isRequired,
-      name: PropTypes.string.isRequired,
-      entries: PropTypes.arrayOf(
-        PropTypes.shape({
-          id: PropTypes.number.isRequired,
-          name: PropTypes.string.isRequired,
-          link: PropTypes.string.isRequired,
-        })
-      ),
-    })
-  ).isRequired,
 };
 
 export default withRouter(Sidebar);

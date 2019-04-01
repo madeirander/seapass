@@ -1,5 +1,5 @@
 import React from 'react';
-import { Form, Icon, Input, Button, Checkbox } from 'antd';
+import { Form, Icon, Input, Button } from 'antd';
 
 class EntryForm extends React.Component {
   handleSubmit = e => {
@@ -18,7 +18,18 @@ class EntryForm extends React.Component {
 
     return (
       <Form onSubmit={this.handleSubmit} className="login-form">
-        <Form.Item>
+        <Form.Item style={{ marginBottom: 0 }}>
+          {getFieldDecorator('hostname', {
+            rules: [{ required: true, message: 'Please input the hostname!' }],
+          })(
+            <Input
+              prefix={<Icon type="link" style={{ color: 'rgba(0,0,0,.25)' }} />}
+              type="text"
+              placeholder="Hostname"
+            />
+          )}
+        </Form.Item>
+        <Form.Item style={{ marginBottom: 0 }}>
           {getFieldDecorator('userName', {
             rules: [{ required: true, message: 'Please input your username!' }],
           })(
@@ -28,7 +39,7 @@ class EntryForm extends React.Component {
             />
           )}
         </Form.Item>
-        <Form.Item>
+        <Form.Item style={{ marginBottom: 0 }}>
           {getFieldDecorator('password', {
             rules: [{ required: true, message: 'Please input your Password!' }],
           })(
@@ -40,17 +51,9 @@ class EntryForm extends React.Component {
           )}
         </Form.Item>
         <Form.Item>
-          {getFieldDecorator('remember', {
-            valuePropName: 'checked',
-            initialValue: true,
-          })(<Checkbox>Remember me</Checkbox>)}
-          <a className="login-form-forgot" href="#?">
-            Forgot password
-          </a>
-          <Button type="primary" htmlType="submit" className="login-form-button">
-            Log in
+          <Button type="primary" htmlType="submit" className="save-form-button">
+            Save
           </Button>
-          Or <a href="#?">register now!</a>
         </Form.Item>
       </Form>
     );
