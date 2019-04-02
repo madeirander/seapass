@@ -93,6 +93,9 @@ class Sidebar extends React.Component {
             openKeys={activeSubMenuKeys}
             style={{ borderRight: 0 }}
             mode="inline"
+            onClick={({ item, key, keyPath }) =>
+              console.log('item, key, keyPath', item, key, keyPath)
+            }
           >
             {items}
           </Menu>

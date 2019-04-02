@@ -4,7 +4,7 @@ import { getEntry } from '../database';
 
 export default function EntryDetail({ match }) {
   const { categoryId, entryId } = match.params;
-  console.log('categoryId, entryId', categoryId, entryId);
+  console.log('333 categoryId, entryId', categoryId, entryId);
   const entry = getEntry(categoryId, entryId);
   console.log('entry: ', entry);
   return (

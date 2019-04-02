@@ -139,4 +139,10 @@ export function getEntry(categoryId, entryId) {
   return entry.value();
 }
 
+export function getCategory(categoryId) {
+  const catId = parseInt(categoryId, 10);
+  const cat = db.get('categories').find({ id: catId });
+  return cat.value();
+}
+
 export default db;
