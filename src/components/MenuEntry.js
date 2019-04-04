@@ -19,6 +19,5 @@ MenuEntry.propTypes = {
     id: PropTypes.number.isRequired,
     catId: PropTypes.number.isRequired,
     name: PropTypes.string.isRequired,
-    link: PropTypes.string.isRequired,
   }).isRequired,
 };
