@@ -2,26 +2,25 @@ import React from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import { Layout, Menu, Button, Icon } from 'antd';
 import PropTypes from 'prop-types';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
 import ScrollView from './ScrollView';
 import MenuCategory from './MenuCategory';
-import db from '../database';
+import { getCategories, getEntryById } from '../database';
+import { setActiveEntry } from '../actions';
+import { getEntryIdFromPath } from '../util';
 
 const { Sider } = Layout;
-
-function getCategoryIdFromPath(path) {
-  return path.indexOf('entry') !== -1
-    ? parseInt(path.split('/')[[path.split('/').length - 2]], 10)
-    : 0;
-}
 
 class Sidebar extends React.Component {
   constructor(props) {
     super(props);
 
-    const pathCategoryId = getCategoryIdFromPath(props.location.pathname);
+    const pathEntryId = getEntryIdFromPath(props.location.pathname);
+    const item = getEntryById(pathEntryId);
 
     this.state = {
-      activeSubMenuKeys: pathCategoryId !== 0 ? [`c${pathCategoryId}`] : [],
+      activeSubMenuKeys: item !== undefined ? [`c${item.catId}`] : [],
     };
 
     this.handleSubMenuClicked = this.handleSubMenuClicked.bind(this);
@@ -29,10 +28,12 @@ class Sidebar extends React.Component {
   }
 
   componentWillMount() {
-    this.categories = db.get('categories').value();
+    this.categories = getCategories();
   }
 
   onAddEntryClicked() {
+    const { updateActiveEntry } = this.props;
+    updateActiveEntry(0);
     this.setState({ activeSubMenuKeys: [] });
   }
 
@@ -53,9 +54,7 @@ class Sidebar extends React.Component {
 
   render() {
     const { activeSubMenuKeys } = this.state;
-    const { location } = this.props;
-
-    console.log('activeSubMenuKeys', activeSubMenuKeys);
+    const { location, updateActiveEntry } = this.props;
 
     const items = this.categories.map(cat => {
       const isSubMenuOpen = activeSubMenuKeys.indexOf(`c${cat.id}`) !== -1;
@@ -93,9 +92,9 @@ class Sidebar extends React.Component {
             openKeys={activeSubMenuKeys}
             style={{ borderRight: 0 }}
             mode="inline"
-            onClick={({ item, key, keyPath }) =>
-              console.log('item, key, keyPath', item, key, keyPath)
-            }
+            onClick={({ key }) => {
+              updateActiveEntry(getEntryIdFromPath(key));
+            }}
           >
             {items}
           </Menu>
@@ -111,4 +110,14 @@ Sidebar.propTypes = {
   }).isRequired,
 };
 
-export default withRouter(Sidebar);
+const mapStateToProps = store => ({
+  activeEntryId: store.activeEntry.entryId,
+});
+
+const mapDispatchToProps = dispatch =>
+  bindActionCreators({ updateActiveEntry: setActiveEntry }, dispatch);
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withRouter(Sidebar));

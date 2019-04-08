@@ -15,7 +15,7 @@ function App() {
           <Content style={{ background: '#fff', padding: 24, margin: 0, minHeight: 280 }}>
             <Route exact path="/" component={Home} />
             <Route path="/new" component={NewEntry} />
-            <Route path="/entry/:categoryId/:entryId" component={EntryDetail} />
+            <Route path="/entry/:entryId" component={EntryDetail} />
           </Content>
         </Layout>
       </Layout>

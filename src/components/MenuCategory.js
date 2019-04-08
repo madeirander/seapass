@@ -9,7 +9,7 @@ export default function MenuCategory(props) {
   const { category, isSubMenuOpen, handleSubMenuClicked, ...otherProps } = props;
   const folderIcon = isSubMenuOpen ? 'folder-open' : 'folder';
   const subItems = category.entries.map(entry => {
-    return <MenuEntry key={`/entry/${entry.catId}/${entry.id}`} entry={entry} />;
+    return <MenuEntry key={`/entry/${entry.id}`} entry={entry} />;
   });
 
   return (

@@ -1,7 +1,7 @@
 import { UPDATE_ACTIVE_ENTRY } from '../actions/actionTypes';
 
 const initialState = {
-  entry: {},
+  entryId: -1,
 };
 
 const activeEntryReducer = (state = initialState, action) => {
@@ -9,7 +9,7 @@ const activeEntryReducer = (state = initialState, action) => {
     case UPDATE_ACTIVE_ENTRY:
       return {
         ...state,
-        entry: action.entry,
+        entryId: action.entryId,
       };
     default:
       return state;

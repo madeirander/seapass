@@ -7,7 +7,7 @@ export default function MenuEntry(props) {
   const { entry, ...otherProps } = props;
   return (
     <Menu.Item {...otherProps}>
-      <NavLink to={`/entry/${entry.catId}/${entry.id}`}>
+      <NavLink to={`/entry/${entry.id}`}>
         <Icon type="file-text" /> {entry.name}
       </NavLink>
     </Menu.Item>
