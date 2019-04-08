@@ -8,14 +8,9 @@ import ScrollView from './ScrollView';
 import MenuCategory from './MenuCategory';
 import { getCategories, getEntryById } from '../database';
 import { setActiveEntry } from '../actions';
+import { getEntryIdFromPath } from '../util';
 
 const { Sider } = Layout;
-
-function getEntryIdFromPath(path) {
-  return path.indexOf('entry') !== -1
-    ? parseInt(path.split('/')[[path.split('/').length - 1]], 10)
-    : 0;
-}
 
 class Sidebar extends React.Component {
   constructor(props) {
@@ -37,6 +32,8 @@ class Sidebar extends React.Component {
   }
 
   onAddEntryClicked() {
+    const { updateActiveEntry } = this.props;
+    updateActiveEntry(0);
     this.setState({ activeSubMenuKeys: [] });
   }
 
@@ -58,8 +55,6 @@ class Sidebar extends React.Component {
   render() {
     const { activeSubMenuKeys } = this.state;
     const { location, updateActiveEntry } = this.props;
-
-    console.log('activeSubMenuKeys', activeSubMenuKeys);
 
     const items = this.categories.map(cat => {
       const isSubMenuOpen = activeSubMenuKeys.indexOf(`c${cat.id}`) !== -1;
@@ -97,9 +92,8 @@ class Sidebar extends React.Component {
             openKeys={activeSubMenuKeys}
             style={{ borderRight: 0 }}
             mode="inline"
-            onClick={({ item, key, keyPath }) => {
-              console.log('item, key, keyPath', item, key, keyPath);
-              updateActiveEntry(key);
+            onClick={({ key }) => {
+              updateActiveEntry(getEntryIdFromPath(key));
             }}
           >
             {items}

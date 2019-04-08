@@ -1,7 +1,7 @@
 import { UPDATE_ACTIVE_ENTRY } from '../actions/actionTypes';
 
 const initialState = {
-  entryId: {},
+  entryId: -1,
 };
 
 const activeEntryReducer = (state = initialState, action) => {

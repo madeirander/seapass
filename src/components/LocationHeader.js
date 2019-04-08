@@ -1,18 +1,30 @@
 import React from 'react';
 import { Breadcrumb } from 'antd';
 import { connect } from 'react-redux';
-import { getEntryById } from '../database';
+import { withRouter } from 'react-router-dom';
+import { getEntryById, getCategoryById } from '../database';
+import { getEntryIdFromPath } from '../util';
+
+function getItems(props) {
+  const { activeEntryId, location } = props;
+
+  const entryId = activeEntryId === -1 ? getEntryIdFromPath(location.pathname) : activeEntryId;
+  const entry = getEntryById(entryId);
+  const category = getCategoryById(entry ? entry.catId : 0);
+
+  return [
+    <Breadcrumb.Item key={1}>{category ? category.name : 'Category'}</Breadcrumb.Item>,
+    <Breadcrumb.Item key={2}>{entry ? entry.name : 'Entry'}</Breadcrumb.Item>,
+  ];
+}
 
 function LocationHeader(props) {
-  const { activeEntryId } = props;
-  console.log('activeEntryId', activeEntryId);
-  const entry = getEntryById(activeEntryId);
-  console.log('Entry: ', entry);
+  const items = getItems(props);
+
   return (
     <Breadcrumb style={{ margin: '16px 0' }}>
       <Breadcrumb.Item>Home</Breadcrumb.Item>
-      <Breadcrumb.Item>Category</Breadcrumb.Item>
-      <Breadcrumb.Item>{entry ? entry.name : 'Entry'}</Breadcrumb.Item>
+      {items}
     </Breadcrumb>
   );
 }
@@ -21,4 +33,4 @@ const mapStateToProps = store => ({
   activeEntryId: store.activeEntry.entryId,
 });
 
-export default connect(mapStateToProps)(LocationHeader);
+export default connect(mapStateToProps)(withRouter(LocationHeader));
