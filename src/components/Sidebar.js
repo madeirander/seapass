@@ -2,15 +2,18 @@ import React from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import { Layout, Menu, Button, Icon } from 'antd';
 import PropTypes from 'prop-types';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
 import ScrollView from './ScrollView';
 import MenuCategory from './MenuCategory';
-import db from '../database';
+import { getCategories, getEntryById } from '../database';
+import { setActiveEntry } from '../actions';
 
 const { Sider } = Layout;
 
-function getCategoryIdFromPath(path) {
+function getEntryIdFromPath(path) {
   return path.indexOf('entry') !== -1
-    ? parseInt(path.split('/')[[path.split('/').length - 2]], 10)
+    ? parseInt(path.split('/')[[path.split('/').length - 1]], 10)
     : 0;
 }
 
@@ -18,10 +21,11 @@ class Sidebar extends React.Component {
   constructor(props) {
     super(props);
 
-    const pathCategoryId = getCategoryIdFromPath(props.location.pathname);
+    const pathEntryId = getEntryIdFromPath(props.location.pathname);
+    const item = getEntryById(pathEntryId);
 
     this.state = {
-      activeSubMenuKeys: pathCategoryId !== 0 ? [`c${pathCategoryId}`] : [],
+      activeSubMenuKeys: item !== undefined ? [`c${item.catId}`] : [],
     };
 
     this.handleSubMenuClicked = this.handleSubMenuClicked.bind(this);
@@ -29,7 +33,7 @@ class Sidebar extends React.Component {
   }
 
   componentWillMount() {
-    this.categories = db.get('categories').value();
+    this.categories = getCategories();
   }
 
   onAddEntryClicked() {
@@ -53,7 +57,7 @@ class Sidebar extends React.Component {
 
   render() {
     const { activeSubMenuKeys } = this.state;
-    const { location } = this.props;
+    const { location, updateActiveEntry } = this.props;
 
     console.log('activeSubMenuKeys', activeSubMenuKeys);
 
@@ -93,9 +97,10 @@ class Sidebar extends React.Component {
             openKeys={activeSubMenuKeys}
             style={{ borderRight: 0 }}
             mode="inline"
-            onClick={({ item, key, keyPath }) =>
-              console.log('item, key, keyPath', item, key, keyPath)
-            }
+            onClick={({ item, key, keyPath }) => {
+              console.log('item, key, keyPath', item, key, keyPath);
+              updateActiveEntry(key);
+            }}
           >
             {items}
           </Menu>
@@ -111,4 +116,14 @@ Sidebar.propTypes = {
   }).isRequired,
 };
 
-export default withRouter(Sidebar);
+const mapStateToProps = store => ({
+  activeEntryId: store.activeEntry.entryId,
+});
+
+const mapDispatchToProps = dispatch =>
+  bindActionCreators({ updateActiveEntry: setActiveEntry }, dispatch);
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withRouter(Sidebar));

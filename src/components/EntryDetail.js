@@ -1,11 +1,11 @@
 import React from 'react';
 import EntryForm from './EntryForm';
-import { getEntry } from '../database';
+import { getEntryById } from '../database';
 
 export default function EntryDetail({ match }) {
-  const { categoryId, entryId } = match.params;
-  console.log('333 categoryId, entryId', categoryId, entryId);
-  const entry = getEntry(categoryId, entryId);
+  const { entryId } = match.params;
+  console.log('entryId', entryId);
+  const entry = getEntryById(entryId);
   console.log('entry: ', entry);
   return (
     <div>

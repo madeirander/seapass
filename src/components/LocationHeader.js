@@ -1,24 +1,24 @@
 import React from 'react';
 import { Breadcrumb } from 'antd';
 import { connect } from 'react-redux';
-import { getCategory, getEntry } from '../database';
+import { getEntryById } from '../database';
 
 function LocationHeader(props) {
-  const { activeEntry } = props;
-  console.log('112 categoryId, entryId', activeEntry.catId, activeEntry.id);
-  const cat = getCategory(activeEntry.catId);
-  const entry = getEntry(activeEntry.id);
+  const { activeEntryId } = props;
+  console.log('activeEntryId', activeEntryId);
+  const entry = getEntryById(activeEntryId);
+  console.log('Entry: ', entry);
   return (
     <Breadcrumb style={{ margin: '16px 0' }}>
       <Breadcrumb.Item>Home</Breadcrumb.Item>
-      <Breadcrumb.Item>{cat ? cat.name : 'Category'}</Breadcrumb.Item>
+      <Breadcrumb.Item>Category</Breadcrumb.Item>
       <Breadcrumb.Item>{entry ? entry.name : 'Entry'}</Breadcrumb.Item>
     </Breadcrumb>
   );
 }
 
 const mapStateToProps = store => ({
-  activeEntry: store.activeEntry.entry,
+  activeEntryId: store.activeEntry.entryId,
 });
 
 export default connect(mapStateToProps)(LocationHeader);
