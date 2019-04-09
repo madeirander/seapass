@@ -4,6 +4,8 @@ const initialState = {
   entryId: -1,
 };
 
+console.log(initialState.entryId);
+
 const activeEntryReducer = (state = initialState, action) => {
   switch (action.type) {
     case UPDATE_ACTIVE_ENTRY:
