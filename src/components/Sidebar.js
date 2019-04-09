@@ -32,8 +32,6 @@ class Sidebar extends React.Component {
   }
 
   onAddEntryClicked() {
-    const { updateActiveEntry } = this.props;
-    updateActiveEntry(0);
     this.setState({ activeSubMenuKeys: [] });
   }
 
