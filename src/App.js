@@ -1,7 +1,7 @@
 import React from 'react';
 import { Layout } from 'antd';
-import { HashRouter as Router, Route } from 'react-router-dom';
-import { Home, Sidebar, LocationHeader, EntryDetail, NewEntry } from './components';
+import { HashRouter as Router, Route, Switch } from 'react-router-dom';
+import { Home, Sidebar, LocationHeader, EntryDetail, NewEntry, NotFound } from './components';
 
 const { Content } = Layout;
 
@@ -13,9 +13,12 @@ function App() {
         <Layout style={{ padding: '0 24px 24px' }}>
           <LocationHeader />
           <Content style={{ background: '#fff', padding: 24, margin: 0, minHeight: 280 }}>
-            <Route exact path="/" component={Home} />
-            <Route path="/new" component={NewEntry} />
-            <Route path="/entry/:entryId" component={EntryDetail} />
+            <Switch>
+              <Route exact path="/" component={Home} />
+              <Route exact path="/new" component={NewEntry} />
+              <Route exact path="/entry/:entryId" component={EntryDetail} />
+              <Route exact path="*" component={NotFound} />
+            </Switch>
           </Content>
         </Layout>
       </Layout>
