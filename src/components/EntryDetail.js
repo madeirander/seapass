@@ -8,7 +8,7 @@ export default function EntryDetail({ match }) {
   return (
     <div>
       <h3>{entry.name}</h3>
-      <EntryForm />
+      <EntryForm entry={entry} />
     </div>
   );
 }

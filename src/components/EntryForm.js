@@ -1,25 +1,30 @@
 import React from 'react';
 import { Form, Icon, Input, Button } from 'antd';
+import { updateEntry } from '../database';
 
 class EntryForm extends React.Component {
   handleSubmit = e => {
     e.preventDefault();
-    const { form } = this.props;
+    const { form, entry } = this.props;
     form.validateFields((err, values) => {
       if (!err) {
         console.log('Received values of form: ', values);
+        updateEntry({ ...entry, data: values });
       }
     });
   };
 
   render() {
-    const { form } = this.props;
+    const { form, entry } = this.props;
     const { getFieldDecorator } = form;
 
+    console.log('entry: ', entry);
+
     return (
-      <Form onSubmit={this.handleSubmit} className="login-form">
+      <Form onSubmit={this.handleSubmit} className="login-form" style={{ maxWidth: '400px' }}>
         <Form.Item style={{ marginBottom: 0 }}>
-          {getFieldDecorator('hostname', {
+          {getFieldDecorator('host', {
+            initialValue: entry.data.host,
             rules: [{ required: true, message: 'Please input the hostname!' }],
           })(
             <Input
@@ -30,7 +35,8 @@ class EntryForm extends React.Component {
           )}
         </Form.Item>
         <Form.Item style={{ marginBottom: 0 }}>
-          {getFieldDecorator('userName', {
+          {getFieldDecorator('user', {
+            initialValue: entry.data.user,
             rules: [{ required: true, message: 'Please input your username!' }],
           })(
             <Input
@@ -40,7 +46,8 @@ class EntryForm extends React.Component {
           )}
         </Form.Item>
         <Form.Item style={{ marginBottom: 0 }}>
-          {getFieldDecorator('password', {
+          {getFieldDecorator('pass', {
+            initialValue: entry.data.pass,
             rules: [{ required: true, message: 'Please input your Password!' }],
           })(
             <Input
