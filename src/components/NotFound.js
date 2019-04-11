@@ -3,16 +3,16 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { setActiveEntry } from '../actions';
 
-class NewEntry extends React.Component {
+class NotFound extends React.Component {
   componentDidMount() {
     const { updateActiveEntry } = this.props;
-    updateActiveEntry(0);
+    updateActiveEntry(-1);
   }
 
   render() {
     return (
       <div>
-        <p>New Entry</p>
+        <h3>Wops, not found!</h3>
       </div>
     );
   }
@@ -28,4 +28,4 @@ const mapDispatchToProps = dispatch =>
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(NewEntry);
+)(NotFound);
