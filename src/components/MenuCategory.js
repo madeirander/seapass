@@ -2,13 +2,14 @@ import React from 'react';
 import { Menu, Icon } from 'antd';
 import PropTypes from 'prop-types';
 import MenuEntry from './MenuEntry';
+import { getEntriesByCategoryId } from '../database';
 
 const { SubMenu } = Menu;
 
 export default function MenuCategory(props) {
   const { category, isSubMenuOpen, handleSubMenuClicked, ...otherProps } = props;
   const folderIcon = isSubMenuOpen ? 'folder-open' : 'folder';
-  const subItems = category.entries.map(entry => {
+  const subItems = getEntriesByCategoryId(category.id).map(entry => {
     return <MenuEntry key={`/entry/${entry.id}`} entry={entry} />;
   });
 
