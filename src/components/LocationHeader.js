@@ -1,8 +1,10 @@
 import React from 'react';
 import { Breadcrumb } from 'antd';
+
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
+
 import { getEntryById, getCategoryById } from '../database';
 import { getEntryIdFromPath } from '../util';
 import { setActiveEntry } from '../actions';

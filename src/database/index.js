@@ -147,3 +147,15 @@ export function getEntriesByCategoryId(categoryId) {
   const entries = db.get('entries').filter({ catId });
   return entries.value();
 }
+
+export function updateEntry(entry) {
+  db.get('entries')
+    .find({ id: entry.id })
+    .assign({
+      catId: entry.catId,
+      name: entry.name,
+      data: entry.data,
+      extra: entry.extra,
+    })
+    .write();
+}
