@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "e5e26f23e7a4eb5108fd8c9026c4ab6a",
+    "revision": "e0236a26fecc7eecae62ba0546a4c10c",
     "url": "/seapass/index.html"
   },
   {
@@ -8,15 +8,15 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/seapass/static/css/2.12793046.chunk.css"
   },
   {
-    "revision": "a270fa0db57907fa961e",
-    "url": "/seapass/static/css/main.795991f2.chunk.css"
+    "revision": "e8f3dae2be46f4dcb184",
+    "url": "/seapass/static/css/main.043a1152.chunk.css"
   },
   {
     "revision": "ca14aed5d2f1e43cf919",
     "url": "/seapass/static/js/2.3be901bf.chunk.js"
   },
   {
-    "revision": "a270fa0db57907fa961e",
+    "revision": "e8f3dae2be46f4dcb184",
     "url": "/seapass/static/js/main.0cffbfca.chunk.js"
   },
   {
