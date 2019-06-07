@@ -1,6 +1,6 @@
 {
   "name": "seapass",
-  "version": "0.1.0",
+  "version": "0.5.2",
   "homepage": "https://andersonmadeira.github.io/seapass/",
   "private": true,
   "dependencies": {
@@ -20,7 +20,7 @@
   },
   "scripts": {
     "start": "react-app-rewired start",
-    "build": "react-app-rewired build",
+    "build": "GENERATE_SOURCEMAP=false react-app-rewired build",
     "test": "react-app-rewired test",
     "eject": "react-app-rewired eject",
     "pretty": "prettier --write \"src/**/*.js\"",
