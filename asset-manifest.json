@@ -1,15 +1,17 @@
 {
-  "main.css": "/seapass/static/css/main.a2255a87.chunk.css",
-  "main.js": "/seapass/static/js/main.10e80e0f.chunk.js",
-  "main.js.map": "/seapass/static/js/main.10e80e0f.chunk.js.map",
-  "runtime~main.js": "/seapass/static/js/runtime~main.5f3eee5c.js",
-  "runtime~main.js.map": "/seapass/static/js/runtime~main.5f3eee5c.js.map",
-  "static/css/2.cf43d19f.chunk.css": "/seapass/static/css/2.cf43d19f.chunk.css",
-  "static/js/2.1ac01f88.chunk.js": "/seapass/static/js/2.1ac01f88.chunk.js",
-  "static/js/2.1ac01f88.chunk.js.map": "/seapass/static/js/2.1ac01f88.chunk.js.map",
-  "index.html": "/seapass/index.html",
-  "precache-manifest.9a3c51f31f18dfb7cda252495684bdd4.js": "/seapass/precache-manifest.9a3c51f31f18dfb7cda252495684bdd4.js",
-  "service-worker.js": "/seapass/service-worker.js",
-  "static/css/2.cf43d19f.chunk.css.map": "/seapass/static/css/2.cf43d19f.chunk.css.map",
-  "static/css/main.a2255a87.chunk.css.map": "/seapass/static/css/main.a2255a87.chunk.css.map"
+  "files": {
+    "main.css": "/seapass/static/css/main.795991f2.chunk.css",
+    "main.js": "/seapass/static/js/main.0cffbfca.chunk.js",
+    "main.js.map": "/seapass/static/js/main.0cffbfca.chunk.js.map",
+    "runtime~main.js": "/seapass/static/js/runtime~main.d05c4c42.js",
+    "runtime~main.js.map": "/seapass/static/js/runtime~main.d05c4c42.js.map",
+    "static/css/2.12793046.chunk.css": "/seapass/static/css/2.12793046.chunk.css",
+    "static/js/2.3be901bf.chunk.js": "/seapass/static/js/2.3be901bf.chunk.js",
+    "static/js/2.3be901bf.chunk.js.map": "/seapass/static/js/2.3be901bf.chunk.js.map",
+    "index.html": "/seapass/index.html",
+    "precache-manifest.e17ec3d8769da3761468494fdea005fa.js": "/seapass/precache-manifest.e17ec3d8769da3761468494fdea005fa.js",
+    "service-worker.js": "/seapass/service-worker.js",
+    "static/css/2.12793046.chunk.css.map": "/seapass/static/css/2.12793046.chunk.css.map",
+    "static/css/main.795991f2.chunk.css.map": "/seapass/static/css/main.795991f2.chunk.css.map"
+  }
 }
