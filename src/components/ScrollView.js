@@ -1,14 +1,14 @@
-import React from 'react';
-import { Scrollbars } from 'react-custom-scrollbars';
-import { PropTypes } from 'prop-types';
+import React from 'react'
+import { Scrollbars } from 'react-custom-scrollbars'
+import { PropTypes } from 'prop-types'
 
 function renderThumbVertical() {
   const thumbStyle = {
     backgroundColor: `#7AB6E7`,
     borderRadius: '5px',
     right: '0px',
-  };
-  return <div className="custom-thumb" style={thumbStyle} />;
+  }
+  return <div className="custom-thumb" style={thumbStyle} />
 }
 
 function renderTrackVertical() {
@@ -18,12 +18,12 @@ function renderTrackVertical() {
     right: '0px',
     bottom: '0px',
     top: '0px',
-  };
-  return <div className="custom-track" style={trackStyle} />;
+  }
+  return <div className="custom-track" style={trackStyle} />
 }
 
 export default function ScrollView(props) {
-  const { style, children, ...otherProps } = props;
+  const { style, children, ...otherProps } = props
 
   return (
     <div style={style}>
@@ -39,13 +39,13 @@ export default function ScrollView(props) {
         {children}
       </Scrollbars>
     </div>
-  );
+  )
 }
 
 ScrollView.propTypes = {
   style: PropTypes.shape({}),
-};
+}
 
 ScrollView.defaultProps = {
   style: {},
-};
+}

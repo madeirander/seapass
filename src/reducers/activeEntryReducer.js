@@ -1,10 +1,8 @@
-import { UPDATE_ACTIVE_ENTRY } from '../actions/actionTypes';
+import { UPDATE_ACTIVE_ENTRY } from '../actions/actionTypes'
 
 const initialState = {
   entryId: -1,
-};
-
-console.log(initialState.entryId);
+}
 
 const activeEntryReducer = (state = initialState, action) => {
   switch (action.type) {
@@ -12,10 +10,10 @@ const activeEntryReducer = (state = initialState, action) => {
       return {
         ...state,
         entryId: action.entryId,
-      };
+      }
     default:
-      return state;
+      return state
   }
-};
+}
 
-export default activeEntryReducer;
+export default activeEntryReducer

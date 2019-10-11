@@ -1,24 +1,24 @@
-import React from 'react';
-import { Form, Icon, Input, Button } from 'antd';
-import { updateEntry } from '../database';
+import React from 'react'
+import { Form, Icon, Input, Button } from 'antd'
+import { updateEntry } from '../database'
 
 class EntryForm extends React.Component {
   handleSubmit = e => {
-    e.preventDefault();
-    const { form, entry } = this.props;
+    e.preventDefault()
+    const { form, entry } = this.props
     form.validateFields((err, values) => {
       if (!err) {
-        console.log('Received values of form: ', values);
-        updateEntry({ ...entry, data: values });
+        console.log('Received values of form: ', values)
+        updateEntry({ ...entry, data: values })
       }
-    });
-  };
+    })
+  }
 
   render() {
-    const { form, entry } = this.props;
-    const { getFieldDecorator } = form;
+    const { form, entry } = this.props
+    const { getFieldDecorator } = form
 
-    console.log('entry: ', entry);
+    console.log('entry: ', entry)
 
     return (
       <Form onSubmit={this.handleSubmit} className="login-form" style={{ maxWidth: '400px' }}>
@@ -63,8 +63,8 @@ class EntryForm extends React.Component {
           </Button>
         </Form.Item>
       </Form>
-    );
+    )
   }
 }
 
-export default Form.create({ name: 'normal_login' })(EntryForm);
+export default Form.create({ name: 'normal_login' })(EntryForm)

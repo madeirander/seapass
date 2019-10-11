@@ -1,9 +1,9 @@
-import React from 'react';
-import { Layout } from 'antd';
-import { HashRouter as Router, Route, Switch } from 'react-router-dom';
-import { Home, Sidebar, LocationHeader, EntryDetail, NewEntry, NotFound } from './components';
+import React from 'react'
+import { Layout } from 'antd'
+import { HashRouter as Router, Route, Switch } from 'react-router-dom'
+import { Home, Sidebar, LocationHeader, EntryDetail, NewEntry, NotFound } from './components'
 
-const { Content } = Layout;
+const { Content } = Layout
 
 function App() {
   return (
@@ -23,7 +23,7 @@ function App() {
         </Layout>
       </Layout>
     </Router>
-  );
+  )
 }
 
-export default App;
+export default App

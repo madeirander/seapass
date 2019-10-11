@@ -1,17 +1,17 @@
-import React from 'react';
-import { Menu, Icon } from 'antd';
-import PropTypes from 'prop-types';
-import MenuEntry from './MenuEntry';
-import { getEntriesByCategoryId } from '../database';
+import React from 'react'
+import { Menu, Icon } from 'antd'
+import PropTypes from 'prop-types'
+import MenuEntry from './MenuEntry'
+import { getEntriesByCategoryId } from '../database'
 
-const { SubMenu } = Menu;
+const { SubMenu } = Menu
 
 export default function MenuCategory(props) {
-  const { category, isSubMenuOpen, handleSubMenuClicked, ...otherProps } = props;
-  const folderIcon = isSubMenuOpen ? 'folder-open' : 'folder';
+  const { category, isSubMenuOpen, handleSubMenuClicked, ...otherProps } = props
+  const folderIcon = isSubMenuOpen ? 'folder-open' : 'folder'
   const subItems = getEntriesByCategoryId(category.id).map(entry => {
-    return <MenuEntry key={`/entry/${entry.id}`} entry={entry} />;
-  });
+    return <MenuEntry key={`/entry/${entry.id}`} entry={entry} />
+  })
 
   return (
     <SubMenu
@@ -26,7 +26,7 @@ export default function MenuCategory(props) {
     >
       {subItems}
     </SubMenu>
-  );
+  )
 }
 
 MenuCategory.propTypes = {
@@ -43,4 +43,4 @@ MenuCategory.propTypes = {
   }).isRequired,
   isSubMenuOpen: PropTypes.bool.isRequired,
   handleSubMenuClicked: PropTypes.func.isRequired,
-};
+}

@@ -1,8 +1,8 @@
-import low from 'lowdb';
-import LocalStorage from 'lowdb/adapters/LocalStorage';
+import low from 'lowdb'
+import LocalStorage from 'lowdb/adapters/LocalStorage'
 
-const adapter = new LocalStorage('db');
-const db = low(adapter);
+const adapter = new LocalStorage('db')
+const db = low(adapter)
 
 db.defaults({
   categories: [
@@ -120,32 +120,32 @@ db.defaults({
       extra: [],
     },
   ],
-}).write();
+}).write()
 
 export function getCategories() {
-  return db.get('categories').value();
+  return db.get('categories').value()
 }
 
 export function getEntries() {
-  return db.get('entries').value();
+  return db.get('entries').value()
 }
 
 export function getEntryById(entryId) {
-  const entId = parseInt(entryId, 10);
-  const entry = db.get('entries').find({ id: entId });
-  return entry.value();
+  const entId = parseInt(entryId, 10)
+  const entry = db.get('entries').find({ id: entId })
+  return entry.value()
 }
 
 export function getCategoryById(categoryId) {
-  const catId = parseInt(categoryId, 10);
-  const cat = db.get('categories').find({ id: catId });
-  return cat.value();
+  const catId = parseInt(categoryId, 10)
+  const cat = db.get('categories').find({ id: catId })
+  return cat.value()
 }
 
 export function getEntriesByCategoryId(categoryId) {
-  const catId = parseInt(categoryId, 10);
-  const entries = db.get('entries').filter({ catId });
-  return entries.value();
+  const catId = parseInt(categoryId, 10)
+  const entries = db.get('entries').filter({ catId })
+  return entries.value()
 }
 
 export function updateEntry(entry) {
@@ -157,5 +157,5 @@ export function updateEntry(entry) {
       data: entry.data,
       extra: entry.extra,
     })
-    .write();
+    .write()
 }
