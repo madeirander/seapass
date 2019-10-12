@@ -1,9 +1,11 @@
 import React from 'react'
 import styled from 'styled-components'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
-const MenuItemRaw = ({ className, label }) => {
+const MenuItemRaw = ({ className, label, icon }) => {
   return (
     <a href="#?" className={className}>
+      <FontAwesomeIcon icon={icon} style={{ marginRight: 10 }} fixedWidth />
       {label}
     </a>
   )

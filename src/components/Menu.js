@@ -1,10 +1,24 @@
 import React from 'react'
 import styled from 'styled-components'
+import { faTags, faUsers, faFileAlt } from '@fortawesome/free-solid-svg-icons'
 import MenuItem from './MenuItem'
 
 const MenuRaw = ({ className }) => {
-  const items = ['Teams', 'Categories', 'Entries'].map(item => {
-    return <MenuItem key={item} label={item} />
+  const items = [
+    {
+      label: 'Teams',
+      icon: faUsers,
+    },
+    {
+      label: 'Categories',
+      icon: faTags,
+    },
+    {
+      label: 'Entries',
+      icon: faFileAlt,
+    },
+  ].map(item => {
+    return <MenuItem key={item.label} icon={item.icon} label={item.label} />
   })
 
   return <nav className={className}>{items}</nav>

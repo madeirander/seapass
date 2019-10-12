@@ -4,9 +4,11 @@ import styled from 'styled-components'
 const ContentRaw = ({ className }) => {
   return (
     <section className={className}>
-      Section here
+      List of entries
       <br />
-      and here
+      right
+      <br />
+      HERE...
     </section>
   )
 }

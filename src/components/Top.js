@@ -1,13 +1,16 @@
 import React from 'react'
 import styled from 'styled-components'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons'
 
 const PageTitle = styled.h3`
   padding: 0;
   margin: 0;
   display: inline-block;
-  text-transform: uppercase;
   line-height: 52px;
   vertical-align: middle;
+  font-size: 1.5em;
+  font-weight: 400;
 `
 
 const HeaderContainer = styled.div`
@@ -23,7 +26,6 @@ const RightActions = styled.div`
 const RightMenuItem = styled.a`
   text-decoration: none;
   line-height: 52px;
-  vertical-align: middle;
   display: block;
   color: #fff;
   transition: background 0.5s ease;
@@ -40,9 +42,12 @@ const TopRaw = ({ className }) => {
   return (
     <header className={className}>
       <HeaderContainer>
-        <PageTitle>app_title</PageTitle>
+        <PageTitle>Seapass</PageTitle>
         <RightActions>
-          <RightMenuItem>logout</RightMenuItem>
+          <RightMenuItem>
+            <FontAwesomeIcon icon={faSignOutAlt} style={{ marginRight: 10 }} />
+            Logout
+          </RightMenuItem>
         </RightActions>
       </HeaderContainer>
     </header>
