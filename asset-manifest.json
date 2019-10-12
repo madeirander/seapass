@@ -1,12 +1,15 @@
 {
   "files": {
-    "main.css": "/seapass/static/css/main.043a1152.chunk.css",
-    "main.js": "/seapass/static/js/main.0cffbfca.chunk.js",
-    "runtime~main.js": "/seapass/static/js/runtime~main.d05c4c42.js",
-    "static/css/2.12793046.chunk.css": "/seapass/static/css/2.12793046.chunk.css",
-    "static/js/2.3be901bf.chunk.js": "/seapass/static/js/2.3be901bf.chunk.js",
+    "main.js": "/seapass/static/js/main.bdcb7e5a.chunk.js",
+    "runtime-main.js": "/seapass/static/js/runtime-main.7264bfa8.js",
+    "static/js/2.015d9ad9.chunk.js": "/seapass/static/js/2.015d9ad9.chunk.js",
     "index.html": "/seapass/index.html",
-    "precache-manifest.afa6268902c011086e7d93951d70de1e.js": "/seapass/precache-manifest.afa6268902c011086e7d93951d70de1e.js",
+    "precache-manifest.4c6847bafddf93a78985482af6457bdc.js": "/seapass/precache-manifest.4c6847bafddf93a78985482af6457bdc.js",
     "service-worker.js": "/seapass/service-worker.js"
-  }
+  },
+  "entrypoints": [
+    "static/js/runtime-main.7264bfa8.js",
+    "static/js/2.015d9ad9.chunk.js",
+    "static/js/main.bdcb7e5a.chunk.js"
+  ]
 }
