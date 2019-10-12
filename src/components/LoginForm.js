@@ -6,11 +6,17 @@ import { FormControl, H3, Button } from './form'
 const LoginFormRaw = ({ className }) => {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
+  const [loading, setLoading] = useState(false)
 
   const onFormSubmit = event => {
     event.preventDefault()
 
-    console.log(username, password)
+    setLoading(true)
+
+    setTimeout(() => {
+      setLoading(false)
+      console.log(username, password)
+    }, 2000)
   }
 
   return (
@@ -23,6 +29,7 @@ const LoginFormRaw = ({ className }) => {
           name="username"
           type="text"
           value={username}
+          disabled={loading}
           onChange={event => setUsername(event.target.value)}
         />
         <FormControl
@@ -31,9 +38,12 @@ const LoginFormRaw = ({ className }) => {
           name="password"
           type="password"
           value={password}
+          disabled={loading}
           onChange={event => setPassword(event.target.value)}
         />
-        <Button type="submit">Login</Button>
+        <Button type="submit" loading={loading}>
+          Login
+        </Button>
       </form>
     </div>
   )

@@ -1,6 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faSpinner } from '@fortawesome/free-solid-svg-icons'
 
 export const H3 = styled.h3`
   padding: 0;
@@ -22,9 +23,27 @@ const Input = styled.input`
   }
 `
 
-export const Button = styled.button`
-  background-color: #88c0d0;
-  color: #3b4252;
+export const Button = styled(props => {
+  const { className, loading, children, type } = props
+  const loadingSpinner = loading ? (
+    <FontAwesomeIcon
+      style={{ marginRight: '0.5em' }}
+      icon={faSpinner}
+      size="sm"
+      fixedWidth
+      spin
+    />
+  ) : null
+
+  return (
+    <button className={className} type={type} disabled={loading}>
+      {loadingSpinner}
+      {children}
+    </button>
+  )
+})`
+  background-color: ${props => (props.loading ? '#9b9b9b' : '#88c0d0')};
+  color: #fff;
   text-align: center;
   text-decoration: none;
   font-size: 1.125em;
@@ -33,16 +52,16 @@ export const Button = styled.button`
   border-width: 0;
   padding: 0.375em 0.75em;
   margin: 0.25em;
-  cursor: pointer;
+  cursor: ${props => (props.loading ? 'progress' : 'pointer')};
   transition: background-color 250ms ease-in-out 0s;
 
   :hover {
-    background-color: #99c9d7;
+    background-color: ${props => (props.loading ? '#9b9b9b' : '#99c9d7')};
   }
 `
 
 export const FormControl = styled(props => {
-  const { icon, className, type, name, placeholder, onChange } = props
+  const { icon, disabled, className, type, name, placeholder, onChange } = props
 
   const iconElem = props.icon ? (
     <FontAwesomeIcon icon={icon} fixedWidth />
@@ -55,6 +74,7 @@ export const FormControl = styled(props => {
         placeholder={placeholder}
         name={name}
         type={type}
+        disabled={disabled}
         spellCheck={false}
         onChange={onChange}
       />
