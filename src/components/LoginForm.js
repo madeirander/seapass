@@ -6,10 +6,15 @@ import { FormControl, H3, Button } from './form'
 import api from '../services/api'
 import { login, isAuthenticated } from '../services/auth'
 
+const ErrorMessage = styled.p`
+  color: #bf616a;
+`
+
 const LoginFormRaw = ({ className }) => {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [loading, setLoading] = useState(false)
+  const [error, setError] = useState(null)
   const history = useHistory()
   const location = useLocation()
 
@@ -19,10 +24,15 @@ const LoginFormRaw = ({ className }) => {
     return <Redirect to="/" />
   }
 
+  const errorMessage = error ? (
+    <ErrorMessage>Check your credentials and try again</ErrorMessage>
+  ) : null
+
   const onFormSubmit = event => {
     event.preventDefault()
 
     setLoading(true)
+    setError(false)
 
     api
       .post('/auth/login', {
@@ -35,8 +45,8 @@ const LoginFormRaw = ({ className }) => {
           setLoading(false)
           history.replace(from)
         },
-        error => {
-          console.log(error)
+        errorResponse => {
+          setError(errorResponse)
           setLoading(false)
         }
       )
@@ -64,6 +74,7 @@ const LoginFormRaw = ({ className }) => {
           disabled={loading}
           onChange={event => setPassword(event.target.value)}
         />
+        {errorMessage}
         <Button type="submit" loading={loading}>
           Login
         </Button>
