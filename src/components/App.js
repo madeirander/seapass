@@ -22,8 +22,9 @@ const PrivateRoute = ({ component: Component, ...rest }) => (
 const App = () => (
   <BrowserRouter>
     <Switch>
-      <PrivateRoute path="/" component={Home} exact />
+      <Redirect path="/" to="/app" exact />
       <Route path="/login" component={Login} />
+      <PrivateRoute path="/app" component={Home} />
     </Switch>
   </BrowserRouter>
 )
