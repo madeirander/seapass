@@ -2,6 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons'
+import { Link } from 'react-router-dom'
 
 const PageTitle = styled.h3`
   padding: 0;
@@ -23,7 +24,7 @@ const RightActions = styled.div`
   float: right;
 `
 
-const RightMenuItem = styled.a`
+const RightMenuItem = styled(Link)`
   text-decoration: none;
   line-height: 52px;
   display: block;
@@ -44,7 +45,7 @@ const TopRaw = ({ className }) => {
       <HeaderContainer>
         <PageTitle>Seapass</PageTitle>
         <RightActions>
-          <RightMenuItem>
+          <RightMenuItem to="/">
             <FontAwesomeIcon icon={faSignOutAlt} style={{ marginRight: 10 }} />
             Logout
           </RightMenuItem>
