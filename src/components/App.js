@@ -1,8 +1,8 @@
 import React from 'react'
 import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom'
-import Login from './Login'
-import Home from './Home'
 import { isAuthenticated } from '../services/auth'
+import Dashboard from './Dashboard'
+import Login from './Login'
 
 const PrivateRoute = ({ component: Component, ...rest }) => (
   <Route
@@ -24,7 +24,7 @@ const App = () => (
     <Switch>
       <Redirect path="/" to="/app" exact />
       <Route path="/login" component={Login} />
-      <PrivateRoute path="/app" component={Home} />
+      <PrivateRoute path="/app" component={Dashboard} />
     </Switch>
   </BrowserRouter>
 )

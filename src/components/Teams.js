@@ -1,18 +1,18 @@
 import React from 'react'
-import { faHome } from '@fortawesome/free-solid-svg-icons'
+import { faUsers } from '@fortawesome/free-solid-svg-icons'
 import ContentWrapper from './ContentWrapper'
 import Header from './Header'
 import Content from './Content'
 
-const Home = () => {
+const Teams = () => {
   return (
     <ContentWrapper>
-      <Header title="Dashboard" icon={faHome} />
+      <Header title="Teams" icon={faUsers} />
       <Content>
-        <p>This is my dashboard</p>
+        <p>Some teams will be here</p>
       </Content>
     </ContentWrapper>
   )
 }
 
-export default Home
+export default Teams

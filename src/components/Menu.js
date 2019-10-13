@@ -1,32 +1,17 @@
 import React from 'react'
 import styled from 'styled-components'
-import { faTags, faUsers, faFileAlt } from '@fortawesome/free-solid-svg-icons'
 import { useRouteMatch } from 'react-router-dom'
 import MenuItem from './MenuItem'
+import { getMenuItems } from '../menu'
 
 const MenuRaw = ({ className }) => {
   const { url } = useRouteMatch()
 
-  const items = [
-    {
-      label: 'Teams',
-      path: `${url}/teams`,
-      icon: faUsers,
-    },
-    {
-      label: 'Categories',
-      path: `${url}/categories`,
-      icon: faTags,
-    },
-    {
-      label: 'Entries',
-      path: `${url}/entries`,
-      icon: faFileAlt,
-    },
-  ].map(item => {
+  const items = getMenuItems().map(item => {
+    const pathUrl = item.path ? `${url}/${item.path}` : `${url}`
     return (
       <MenuItem
-        to={item.path}
+        to={pathUrl}
         key={item.label}
         icon={item.icon}
         label={item.label}
