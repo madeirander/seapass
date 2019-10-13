@@ -2,7 +2,8 @@ import React from 'react'
 import styled from 'styled-components'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons'
-import { Link } from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
+import { logout } from '../services/auth'
 
 const PageTitle = styled.h3`
   padding: 0;
@@ -24,7 +25,7 @@ const RightActions = styled.div`
   float: right;
 `
 
-const RightMenuItem = styled(Link)`
+const RightMenuItem = styled.a`
   text-decoration: none;
   line-height: 52px;
   display: block;
@@ -40,12 +41,19 @@ const RightMenuItem = styled(Link)`
 `
 
 const TopRaw = ({ className }) => {
+  const history = useHistory()
+
   return (
     <header className={className}>
       <HeaderContainer>
         <PageTitle>Seapass</PageTitle>
         <RightActions>
-          <RightMenuItem to="/">
+          <RightMenuItem
+            onClick={() => {
+              logout()
+              history.push('/login')
+            }}
+          >
             <FontAwesomeIcon icon={faSignOutAlt} style={{ marginRight: 10 }} />
             Logout
           </RightMenuItem>

@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
 import { faUser, faLock } from '@fortawesome/free-solid-svg-icons'
+import { useHistory, useLocation, Redirect } from 'react-router-dom'
 import { FormControl, H3, Button } from './form'
 import api from '../services/api'
 import { login, isAuthenticated } from '../services/auth'
@@ -9,10 +10,14 @@ const LoginFormRaw = ({ className }) => {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [loading, setLoading] = useState(false)
+  const history = useHistory()
+  const location = useLocation()
 
-  useEffect(() => {
-    console.log('isAuthenticated: ', isAuthenticated())
-  }, [])
+  const { from } = location.state || { from: { pathname: '/' } }
+
+  if (isAuthenticated()) {
+    return <Redirect to="/" />
+  }
 
   const onFormSubmit = event => {
     event.preventDefault()
@@ -28,6 +33,7 @@ const LoginFormRaw = ({ className }) => {
         response => {
           login(response.data.token)
           setLoading(false)
+          history.replace(from)
         },
         error => {
           console.log(error)
