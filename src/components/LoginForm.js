@@ -1,22 +1,39 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
 import { faUser, faLock } from '@fortawesome/free-solid-svg-icons'
 import { FormControl, H3, Button } from './form'
+import api from '../services/api'
+import { login, isAuthenticated } from '../services/auth'
 
 const LoginFormRaw = ({ className }) => {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [loading, setLoading] = useState(false)
 
+  useEffect(() => {
+    console.log('isAuthenticated: ', isAuthenticated())
+  }, [])
+
   const onFormSubmit = event => {
     event.preventDefault()
 
     setLoading(true)
 
-    setTimeout(() => {
-      setLoading(false)
-      console.log(username, password)
-    }, 2000)
+    api
+      .post('/auth/login', {
+        username,
+        password,
+      })
+      .then(
+        response => {
+          login(response.data.token)
+          setLoading(false)
+        },
+        error => {
+          console.log(error)
+          setLoading(false)
+        }
+      )
   }
 
   return (
