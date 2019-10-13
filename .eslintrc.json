@@ -13,6 +13,7 @@
   },
   "parser": "babel-eslint",
   "rules": {
+    "react/button-has-type": 0,
     "react/prop-types": 0,
     "import/prefer-default-export": "off",
     "import/no-unresolved": "off",
