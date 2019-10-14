@@ -1,8 +1,13 @@
 import React from 'react'
 import styled from 'styled-components'
+import { connect } from 'react-redux'
 
-const UserInfoRaw = ({ className }) => {
-  return <span className={className}>Username</span>
+const UserInfoRaw = props => {
+  const { className, loading, user } = props
+
+  const userInfoText = loading ? 'Loading...' : user.name
+
+  return <span className={className}>{userInfoText}</span>
 }
 
 const UserInfo = styled(UserInfoRaw)`
@@ -12,4 +17,9 @@ const UserInfo = styled(UserInfoRaw)`
   padding: 0.5rem;
 `
 
-export default UserInfo
+const mapStateToProps = state => ({
+  loading: state.auth.userLoading,
+  user: state.auth.user,
+})
+
+export default connect(mapStateToProps)(UserInfo)

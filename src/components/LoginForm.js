@@ -1,24 +1,25 @@
 import React, { useState } from 'react'
 import styled from 'styled-components'
 import { faUser, faLock } from '@fortawesome/free-solid-svg-icons'
-import { useHistory, useLocation, Redirect } from 'react-router-dom'
+import { /* useHistory, useLocation, */ Redirect } from 'react-router-dom'
 import { FormControl, H3, Button } from './form'
-import api from '../services/api'
-import { login, isAuthenticated } from '../services/auth'
+import { isAuthenticated } from '../services/auth'
+import { performLogin } from '../actions'
 
 const ErrorMessage = styled.p`
   color: #bf616a;
 `
 
-const LoginFormRaw = ({ className }) => {
+const LoginFormRaw = props => {
+  const { className } = props
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
-  const history = useHistory()
-  const location = useLocation()
+  // const history = useHistory()
+  // const location = useLocation()
 
-  const { from } = location.state || { from: { pathname: '/' } }
+  // const { from } = location.state || { from: { pathname: '/' } }
 
   if (isAuthenticated()) {
     return <Redirect to="/" />
@@ -34,22 +35,23 @@ const LoginFormRaw = ({ className }) => {
     setLoading(true)
     setError(false)
 
-    api
-      .post('/auth/login', {
-        username,
-        password,
-      })
-      .then(
-        response => {
-          login(response.data.token)
-          setLoading(false)
-          history.replace(from)
-        },
-        errorResponse => {
-          setError(errorResponse)
-          setLoading(false)
-        }
-      )
+    performLogin(username, password)
+    // api
+    //   .post('/auth/login', {
+    //     username,
+    //     password,
+    //   })
+    //   .then(
+    //     response => {
+    //       login(response.data.token)
+    //       setLoading(false)
+    //       history.replace(from)
+    //     },
+    //     errorResponse => {
+    //       setError(errorResponse)
+    //       setLoading(false)
+    //     }
+    //   )
   }
 
   return (
