@@ -1,7 +1,10 @@
 import React from 'react'
+import { connect } from 'react-redux'
 import styled from 'styled-components'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons'
+import { useHistory } from 'react-router-dom'
+import { performLogout } from '../actions/auth-actions'
 
 const PageTitle = styled.h3`
   padding: 0;
@@ -38,13 +41,20 @@ const RightMenuItem = styled.a`
   }
 `
 
-const TopRaw = ({ className }) => {
+const TopRaw = ({ className, logout }) => {
+  const history = useHistory()
+
   return (
     <header className={className}>
       <HeaderContainer>
         <PageTitle>Seapass</PageTitle>
         <RightActions>
-          <RightMenuItem>
+          <RightMenuItem
+            onClick={() => {
+              logout()
+              history.push('/login')
+            }}
+          >
             <FontAwesomeIcon icon={faSignOutAlt} style={{ marginRight: 10 }} />
             Logout
           </RightMenuItem>
@@ -61,4 +71,9 @@ const Top = styled(TopRaw)`
   margin-bottom: 1.5rem;
 `
 
-export default Top
+export default connect(
+  null,
+  {
+    logout: performLogout,
+  }
+)(Top)

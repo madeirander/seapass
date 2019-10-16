@@ -1,22 +1,31 @@
 import React, { useState } from 'react'
+import { connect } from 'react-redux'
+import { Redirect } from 'react-router-dom'
 import styled from 'styled-components'
 import { faUser, faLock } from '@fortawesome/free-solid-svg-icons'
 import { FormControl, H3, Button } from './form'
+import { performLogin } from '../actions/auth-actions'
 
-const LoginFormRaw = ({ className }) => {
+const ErrorMessage = styled.p`
+  color: #bf616a;
+`
+
+const LoginFormRaw = props => {
+  const { className, authenticated, error, loading } = props
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
-  const [loading, setLoading] = useState(false)
+
+  if (authenticated) {
+    return <Redirect to="/" />
+  }
+
+  const errorMessage = error ? (
+    <ErrorMessage>Check your credentials and try again</ErrorMessage>
+  ) : null
 
   const onFormSubmit = event => {
     event.preventDefault()
-
-    setLoading(true)
-
-    setTimeout(() => {
-      setLoading(false)
-      console.log(username, password)
-    }, 2000)
+    props.performLogin(username, password)
   }
 
   return (
@@ -41,6 +50,7 @@ const LoginFormRaw = ({ className }) => {
           disabled={loading}
           onChange={event => setPassword(event.target.value)}
         />
+        {errorMessage}
         <Button type="submit" loading={loading}>
           Login
         </Button>
@@ -58,4 +68,17 @@ const LoginForm = styled(LoginFormRaw)`
   border-radius: 8px;
 `
 
-export default LoginForm
+const mapStateToProps = state => {
+  return {
+    authenticated: state.auth.authenticated,
+    loading: state.auth.loading,
+    error: state.auth.error,
+  }
+}
+
+export default connect(
+  mapStateToProps,
+  {
+    performLogin,
+  }
+)(LoginForm)

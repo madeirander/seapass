@@ -1,18 +1,6 @@
-import React from 'react'
 import styled from 'styled-components'
-import Header from './Header'
-import Content from './Content'
 
-const ContentWrapperRaw = ({ className }) => {
-  return (
-    <section className={className}>
-      <Header />
-      <Content />
-    </section>
-  )
-}
-
-const ContentWrapper = styled(ContentWrapperRaw)`
+const ContentWrapper = styled.section`
   display: inline-block;
   vertical-align: top;
   width: 75%;

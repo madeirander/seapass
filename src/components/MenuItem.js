@@ -1,17 +1,9 @@
 import React from 'react'
 import styled from 'styled-components'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { Link } from 'react-router-dom'
 
-const MenuItemRaw = ({ className, label, icon }) => {
-  return (
-    <a href="#?" className={className}>
-      <FontAwesomeIcon icon={icon} style={{ marginRight: 10 }} fixedWidth />
-      {label}
-    </a>
-  )
-}
-
-const MenuItem = styled(MenuItemRaw)`
+const MenuItemLink = styled(Link)`
   text-decoration: none;
   display: block;
   padding: 0.5rem;
@@ -22,5 +14,14 @@ const MenuItem = styled(MenuItemRaw)`
     color: #88c0cf;
   }
 `
+
+const MenuItem = ({ label, icon, ...otherProps }) => {
+  return (
+    <MenuItemLink {...otherProps}>
+      <FontAwesomeIcon icon={icon} style={{ marginRight: 10 }} fixedWidth />
+      {label}
+    </MenuItemLink>
+  )
+}
 
 export default MenuItem
