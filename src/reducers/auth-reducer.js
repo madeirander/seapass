@@ -2,48 +2,37 @@ import {
   LOGIN_REQUEST,
   LOGIN_SUCCESS,
   LOGIN_FAILURE,
-  CURRENT_USER_REQUEST,
-  CURRENT_USER_SUCCESS,
-  CURRENT_USER_FAILURE,
+  LOGOUT,
 } from '../actions/action-types'
+import { isAuthenticated } from '../services/auth'
 
 const INITIAL_STATE = {
-  loginLoading: false,
-  loginError: false,
-  userLoading: false,
-  userError: false,
-  user: null,
+  authenticated: isAuthenticated(),
+  loading: false,
+  error: null,
 }
 
 const authReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
     case LOGIN_REQUEST:
       return {
-        loginLoading: true,
+        loading: true,
       }
     case LOGIN_SUCCESS:
       return {
-        loginLoading: false,
         authenticated: true,
+        loading: false,
+        error: null,
       }
     case LOGIN_FAILURE:
       return {
-        loginLoading: false,
-        loginError: action.payload.error,
+        authenticated: false,
+        loading: false,
+        error: action.payload.error,
       }
-    case CURRENT_USER_REQUEST:
+    case LOGOUT:
       return {
-        userLoading: true,
-      }
-    case CURRENT_USER_SUCCESS:
-      return {
-        userLoading: false,
-        user: action.payload.user,
-      }
-    case CURRENT_USER_FAILURE:
-      return {
-        userLoading: false,
-        userError: action.payload.error,
+        authenticated: false,
       }
     default:
       return state

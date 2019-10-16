@@ -1,27 +1,21 @@
 import React, { useState } from 'react'
+import { connect } from 'react-redux'
+import { Redirect } from 'react-router-dom'
 import styled from 'styled-components'
 import { faUser, faLock } from '@fortawesome/free-solid-svg-icons'
-import { /* useHistory, useLocation, */ Redirect } from 'react-router-dom'
 import { FormControl, H3, Button } from './form'
-import { isAuthenticated } from '../services/auth'
-import { performLogin } from '../actions'
+import { performLogin } from '../actions/auth-actions'
 
 const ErrorMessage = styled.p`
   color: #bf616a;
 `
 
 const LoginFormRaw = props => {
-  const { className } = props
+  const { className, authenticated, error, loading } = props
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
-  const [loading, setLoading] = useState(false)
-  const [error, setError] = useState(null)
-  // const history = useHistory()
-  // const location = useLocation()
 
-  // const { from } = location.state || { from: { pathname: '/' } }
-
-  if (isAuthenticated()) {
+  if (authenticated) {
     return <Redirect to="/" />
   }
 
@@ -31,27 +25,7 @@ const LoginFormRaw = props => {
 
   const onFormSubmit = event => {
     event.preventDefault()
-
-    setLoading(true)
-    setError(false)
-
-    performLogin(username, password)
-    // api
-    //   .post('/auth/login', {
-    //     username,
-    //     password,
-    //   })
-    //   .then(
-    //     response => {
-    //       login(response.data.token)
-    //       setLoading(false)
-    //       history.replace(from)
-    //     },
-    //     errorResponse => {
-    //       setError(errorResponse)
-    //       setLoading(false)
-    //     }
-    //   )
+    props.performLogin(username, password)
   }
 
   return (
@@ -94,4 +68,17 @@ const LoginForm = styled(LoginFormRaw)`
   border-radius: 8px;
 `
 
-export default LoginForm
+const mapStateToProps = state => {
+  return {
+    authenticated: state.auth.authenticated,
+    loading: state.auth.loading,
+    error: state.auth.error,
+  }
+}
+
+export default connect(
+  mapStateToProps,
+  {
+    performLogin,
+  }
+)(LoginForm)
