@@ -11,7 +11,7 @@ const GlobalStyle = createGlobalStyle`
     margin: 0;
     padding: 0;
     color: #4C5569;
-    background: #F8F9FB;
+    background: #F2F4F8;
     font-family: 'Ubuntu', sans-serif;
   }
 `

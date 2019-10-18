@@ -1,24 +1,15 @@
 import React from 'react'
-import styled from 'styled-components'
 import Menu from './Menu'
 import UserInfo from './UserInfo'
+import Content from './Content'
 
-const SidebarRaw = ({ className }) => {
+const Sidebar = () => {
   return (
-    <div className={className}>
+    <Content style={{ width: '23%' }}>
       <UserInfo />
       <Menu />
-    </div>
+    </Content>
   )
 }
-
-const Sidebar = styled(SidebarRaw)`
-  display: inline-block;
-  vertical-align: top;
-  width: 25%;
-  background: #fff;
-  padding: 1em;
-  border: 1px solid rgba(0, 0, 0, 0.1);
-`
 
 export default Sidebar
