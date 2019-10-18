@@ -5,7 +5,7 @@ import Content from './Content'
 
 const Sidebar = () => {
   return (
-    <Content style={{ width: '23%' }}>
+    <Content style={{ display: 'inline-block', width: '23%' }}>
       <UserInfo />
       <Menu />
     </Content>

@@ -1,7 +1,6 @@
 import styled from 'styled-components'
 
 const Content = styled.section`
-  display: inline-block;
   background: #fff;
   margin-left: 1em;
   margin-top: 1em;

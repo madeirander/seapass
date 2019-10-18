@@ -68,7 +68,10 @@ const Top = styled(TopRaw)`
   background: #5e80aa;
   color: #fff;
   height: 52px;
-  margin-bottom: 1.5rem;
+  margin-bottom: 1rem;
+  box-shadow: rgba(184, 194, 215, 0.35) 0px 6px 9px 0px;
+  transition: box-shadow 0.4s ease-in-out 0s,
+    background-color 0.4s ease-in-out 0s;
 `
 
 export default connect(
