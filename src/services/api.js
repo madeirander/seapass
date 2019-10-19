@@ -5,7 +5,7 @@ const api = axios.create({
   baseURL: process.env.REACT_APP_API_URL,
 })
 
-api.interceptors.request.use(async conf => {
+api.interceptors.request.use(conf => {
   const token = getToken()
   const config = conf
   if (token) {

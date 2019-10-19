@@ -6,7 +6,6 @@ import {
 } from './action-types'
 import api from '../services/api'
 import { logout, login } from '../services/auth'
-import { fetchCurrentUser } from './current-user-actions'
 
 const loginRequest = () => ({
   type: LOGIN_REQUEST,
@@ -43,8 +42,6 @@ export const performLogin = (username, password) => dispatch => {
         login(response.data.token)
 
         dispatch(loginRequestSuccess())
-
-        fetchCurrentUser()(dispatch)
       },
       error => {
         dispatch(loginRequestFailure(error.toString()))
