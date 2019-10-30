@@ -5,7 +5,7 @@ import {
   LOGOUT,
 } from './action-types'
 import api from '../services/api'
-import { logout, login } from '../services/auth'
+import { logout, login, extractTokenFromResponse } from '../services/auth'
 
 const loginRequest = () => ({
   type: LOGIN_REQUEST,
@@ -39,7 +39,7 @@ export const performLogin = (username, password) => dispatch => {
     })
     .then(
       response => {
-        login(response.data.token)
+        login(extractTokenFromResponse(response))
 
         dispatch(loginRequestSuccess())
       },
