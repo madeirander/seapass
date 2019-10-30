@@ -3,6 +3,30 @@ import styled from 'styled-components'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSpinner } from '@fortawesome/free-solid-svg-icons'
 
+const getProportionsBySize = size => {
+  switch (size) {
+    case 'lg':
+      return {
+        padding: '0.375em 0.75em',
+        fontSize: '2em',
+        margin: '0.25em',
+      }
+    default:
+    case 'sm':
+      return {
+        padding: '0.375em 0.75em',
+        fontSize: '1.125em',
+        margin: '0.25em',
+      }
+    case 'xs':
+      return {
+        padding: '0.250em 0.5em',
+        fontSize: '0.75em',
+        margin: '0.25em',
+      }
+  }
+}
+
 export const H3 = styled.h3`
   padding: 0;
   margin: 0;
@@ -24,7 +48,35 @@ const Input = styled.input`
 `
 
 export const Button = styled(props => {
-  const { className, loading, children, type } = props
+  const { className, children, size } = props
+  const sizeStyle = getProportionsBySize(size)
+  return (
+    <button className={className} style={sizeStyle}>
+      {children}
+    </button>
+  )
+})`
+  background-color: #88c0d0;
+  color: #fff;
+  text-align: center;
+  text-decoration: none;
+  font-size: 1.125em;
+  outline: none;
+  border-radius: 0.25em;
+  border-width: 0;
+  padding: 0.375em 0.75em;
+  margin: 0.25em;
+  cursor: pointer;
+  transition: background-color 250ms ease-in-out 0s;
+
+  :hover {
+    background-color: #99c9d7;
+  }
+`
+
+export const ActionButton = styled(props => {
+  const { className, loading, children, submit, size } = props
+  const type = submit ? 'submit' : null
   const loadingSpinner = loading ? (
     <FontAwesomeIcon
       style={{ marginRight: '0.5em' }}
@@ -36,24 +88,14 @@ export const Button = styled(props => {
   ) : null
 
   return (
-    <button className={className} type={type} disabled={loading}>
+    <Button className={className} type={type} size={size} disabled={loading}>
       {loadingSpinner}
       {children}
-    </button>
+    </Button>
   )
 })`
   background-color: ${props => (props.loading ? '#9b9b9b' : '#88c0d0')};
-  color: #fff;
-  text-align: center;
-  text-decoration: none;
-  font-size: 1.125em;
-  outline: none;
-  border-radius: 0.25em;
-  border-width: 0;
-  padding: 0.375em 0.75em;
-  margin: 0.25em;
   cursor: ${props => (props.loading ? 'progress' : 'pointer')};
-  transition: background-color 250ms ease-in-out 0s;
 
   :hover {
     background-color: ${props => (props.loading ? '#9b9b9b' : '#99c9d7')};
