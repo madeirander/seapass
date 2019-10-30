@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import { Redirect } from 'react-router-dom'
 import styled from 'styled-components'
 import { faUser, faLock } from '@fortawesome/free-solid-svg-icons'
-import { FormControl, H3, Button } from './form'
+import { FormControl, H3, ActionButton } from './form'
 import { performLogin } from '../actions/auth-actions'
 
 const ErrorMessage = styled.p`
@@ -51,9 +51,9 @@ const LoginFormRaw = props => {
           onChange={event => setPassword(event.target.value)}
         />
         {errorMessage}
-        <Button type="submit" loading={loading}>
+        <ActionButton submit loading={loading}>
           Login
-        </Button>
+        </ActionButton>
       </form>
     </div>
   )
