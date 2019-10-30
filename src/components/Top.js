@@ -7,7 +7,7 @@ import { useHistory } from 'react-router-dom'
 import { performLogout } from '../actions/auth-actions'
 
 const PageTitle = styled.h3`
-  padding: 0;
+  padding: 0 0 0 1em;
   margin: 0;
   display: inline-block;
   line-height: 52px;
