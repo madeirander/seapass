@@ -23,10 +23,7 @@ const Input = styled.input`
   }
 `
 
-export const Button = styled(props => {
-  const { className, children } = props
-  return <button className={className}>{children}</button>
-})`
+export const Button = styled.button`
   background-color: #88c0d0;
   color: #fff;
   text-align: center;

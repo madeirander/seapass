@@ -60,7 +60,6 @@ const LoginFormRaw = props => {
 }
 
 const LoginForm = styled(LoginFormRaw)`
-  vertical-align: middle;
   background: #fff;
   box-shadow: rgba(184, 194, 215, 0.35) 0px 6px 9px 0px;
   width: 400px;
