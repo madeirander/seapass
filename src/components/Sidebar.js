@@ -1,24 +1,28 @@
-import React from 'react'
-import styled from 'styled-components'
+import React, { useEffect } from 'react'
+import { connect } from 'react-redux'
 import Menu from './Menu'
 import UserInfo from './UserInfo'
+import Content from './Content'
+import { fetchCurrentUser } from '../actions/current-user-actions'
 
-const SidebarRaw = ({ className }) => {
+const Sidebar = props => {
+  const { fetchUser } = props
+
+  useEffect(() => {
+    fetchUser()
+  })
+
   return (
-    <div className={className}>
+    <Content style={{ display: 'inline-block', width: '23%' }}>
       <UserInfo />
       <Menu />
-    </div>
+    </Content>
   )
 }
 
-const Sidebar = styled(SidebarRaw)`
-  display: inline-block;
-  vertical-align: top;
-  width: 25%;
-  background: #fff;
-  padding: 1em;
-  border: 1px solid rgba(0, 0, 0, 0.1);
-`
-
-export default Sidebar
+export default connect(
+  null,
+  {
+    fetchUser: fetchCurrentUser,
+  }
+)(Sidebar)

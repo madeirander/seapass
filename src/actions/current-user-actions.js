@@ -28,7 +28,7 @@ export const fetchCurrentUser = () => dispatch => {
 
   api.get('/auth/user').then(
     res => {
-      dispatch(currentUserSuccess(res.data))
+      dispatch(currentUserSuccess(res.data.user))
     },
     err => {
       dispatch(currentUserFailure(err.toString()))

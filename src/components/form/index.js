@@ -23,8 +23,36 @@ const Input = styled.input`
   }
 `
 
-export const Button = styled(props => {
-  const { className, loading, children, type } = props
+export const Button = styled.button`
+  background-color: #88c0d0;
+  color: #fff;
+  text-align: center;
+  text-decoration: none;
+  font-size: ${({ size }) =>
+    (size === 'xs' && '0.75em') ||
+    (size === 'sm' && '1.125em') ||
+    (size === 'lg' && '2em') ||
+    '1.125em'};
+  outline: none;
+  border-radius: 0.25em;
+  border-width: 0;
+  padding: ${({ size }) =>
+    (size === 'xs' && '0.250em 0.5em') ||
+    (size === 'sm' && '0.375em 0.75em') ||
+    (size === 'lg' && '0.375em 0.75em') ||
+    '0.375em 0.75em'};
+  margin: 0.25em;
+  cursor: pointer;
+  transition: background-color 250ms ease-in-out 0s;
+
+  :hover {
+    background-color: #99c9d7;
+  }
+`
+
+export const ActionButton = styled(props => {
+  const { className, loading, children, submit, size } = props
+  const type = submit ? 'submit' : null
   const loadingSpinner = loading ? (
     <FontAwesomeIcon
       style={{ marginRight: '0.5em' }}
@@ -36,24 +64,14 @@ export const Button = styled(props => {
   ) : null
 
   return (
-    <button className={className} type={type} disabled={loading}>
+    <Button className={className} size={size} type={type} disabled={loading}>
       {loadingSpinner}
       {children}
-    </button>
+    </Button>
   )
 })`
   background-color: ${props => (props.loading ? '#9b9b9b' : '#88c0d0')};
-  color: #fff;
-  text-align: center;
-  text-decoration: none;
-  font-size: 1.125em;
-  outline: none;
-  border-radius: 0.25em;
-  border-width: 0;
-  padding: 0.375em 0.75em;
-  margin: 0.25em;
   cursor: ${props => (props.loading ? 'progress' : 'pointer')};
-  transition: background-color 250ms ease-in-out 0s;
 
   :hover {
     background-color: ${props => (props.loading ? '#9b9b9b' : '#99c9d7')};
