@@ -1,14 +1,17 @@
 import React from 'react'
+import { createPortal } from 'react-dom'
 import styled from 'styled-components'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTimes } from '@fortawesome/free-solid-svg-icons'
+import usePortal from '../hooks/usePortal'
 
 const Modal = props => {
   const { onClose, visible, title, children } = props
+  const target = usePortal('modal-container')
 
   if (!visible) return null
 
-  return (
+  return createPortal(
     <ModalWrapper>
       <ModalContent>
         <ModalHeader>
@@ -20,7 +23,8 @@ const Modal = props => {
         </ModalHeader>
         {children}
       </ModalContent>
-    </ModalWrapper>
+    </ModalWrapper>,
+    target
   )
 }
 
