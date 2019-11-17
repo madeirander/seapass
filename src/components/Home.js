@@ -21,7 +21,7 @@ const Home = () => {
       <Modal
         title="My modal here"
         visible={modalVisible}
-        onClose={() => setModalVisible(false)}
+        onDismiss={() => setModalVisible(false)}
       >
         <p>lorem ipsum dolor meten not</p>
       </Modal>

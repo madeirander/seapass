@@ -6,20 +6,17 @@ import { faTimes } from '@fortawesome/free-solid-svg-icons'
 import usePortal from '../hooks/usePortal'
 
 const Modal = props => {
-  const { onClose, visible, title, children } = props
+  const { onDismiss, visible, title, children } = props
   const target = usePortal('modal-container')
 
   if (!visible) return null
 
   return createPortal(
-    <ModalWrapper>
+    <ModalWrapper onClick={onDismiss}>
       <ModalContent>
         <ModalHeader>
           <ModalTitle>{title}</ModalTitle>
-          <CloseIcon
-            icon={faTimes}
-            onClick={onClose ? () => onClose() : null}
-          />
+          <CloseIcon icon={faTimes} onClick={onDismiss} />
         </ModalHeader>
         {children}
       </ModalContent>
@@ -31,7 +28,7 @@ const Modal = props => {
 const ModalWrapper = styled.div`
   position: fixed;
   top: 0;
-  right: 0;
+  left: 0;
   width: 100%;
   height: 100%;
   display: flex;
@@ -40,7 +37,20 @@ const ModalWrapper = styled.div`
   background-color: #55555544;
 `
 
-const ModalContent = styled.div`
+const ModalContent = styled(props => {
+  return (
+    <div
+      {...props}
+      onClick={event => {
+        if (props.onClick) props.onClick()
+        event.stopPropagation()
+      }}
+      role="presentation"
+    >
+      {props.children}
+    </div>
+  )
+})`
   opacity: 1;
   background: #fff;
   box-shadow: rgba(184, 194, 215, 0.35) 0px 6px 9px 0px;
