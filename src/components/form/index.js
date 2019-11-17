@@ -30,15 +30,17 @@ export const Button = styled.button`
   text-decoration: none;
   font-size: ${({ size }) =>
     (size === 'xs' && '0.75em') ||
-    (size === 'sm' && '1.125em') ||
+    (size === 'sm' && '0.9em') ||
+    (size === 'md' && '1.125em') ||
     (size === 'lg' && '2em') ||
-    '1.125em'};
+    '0.9em'};
   outline: none;
   border-radius: 0.25em;
   border-width: 0;
   padding: ${({ size }) =>
     (size === 'xs' && '0.250em 0.5em') ||
     (size === 'sm' && '0.375em 0.75em') ||
+    (size === 'md' && '0.375em 0.75em') ||
     (size === 'lg' && '0.375em 0.75em') ||
     '0.375em 0.75em'};
   margin: 0.25em;

@@ -22,6 +22,12 @@ const Home = () => {
         title="My modal here"
         visible={modalVisible}
         onDismiss={() => setModalVisible(false)}
+        footer={
+          <>
+            <Button onClick={() => console.log('ok')}>Ok</Button>
+            <Button onClick={() => console.log('cancel')}>Cancel</Button>
+          </>
+        }
       >
         <p>lorem ipsum dolor meten not</p>
       </Modal>
