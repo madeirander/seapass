@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { connect } from 'react-redux'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
@@ -12,6 +12,79 @@ import ContentWrapper from './ContentWrapper'
 import Content from './Content'
 import { fetchEntries } from '../actions/entries-actions'
 import { Button } from './form'
+import Modal from './Modal'
+import NewEntryForm from './NewEntryForm'
+
+const Entries = props => {
+  const { entries, loading, error, requestEntries } = props
+  const [modalVisible, setModalVisible] = useState(false)
+
+  useEffect(() => {
+    requestEntries()
+  }, [requestEntries])
+
+  let msg = null
+
+  if (loading) {
+    msg = <p>Loading...</p>
+  }
+
+  if (error) {
+    msg = <p style={{ color: 'red' }}>Error loading entries</p>
+  }
+
+  const entriesItems = entries
+    ? entries.map(e => (
+        <ListItem key={e._id}>
+          <span style={{ flex: 1 }}>{e.name}</span>
+          <div>
+            <ActionIconEdit icon={faSearch} />
+            <ActionIconRemove icon={faTrash} />
+          </div>
+        </ListItem>
+      ))
+    : []
+
+  return (
+    <>
+      <ContentWrapper>
+        <Content
+          style={{
+            display: 'flex',
+            flexDirection: 'row',
+            alignItems: 'center',
+          }}
+        >
+          <H1 style={{ flex: 1 }}>
+            <FontAwesomeIcon icon={faFileAlt} style={{ marginRight: 10 }} />
+            Entries
+          </H1>
+          <Button size="xs" onClick={() => setModalVisible(true)}>
+            <FontAwesomeIcon icon={faPlus} fixedWidth />
+            Add Entry
+          </Button>
+        </Content>
+        <Content>
+          <List>{entriesItems}</List>
+          {msg}
+        </Content>
+      </ContentWrapper>
+      <Modal
+        title="Add new Entry"
+        visible={modalVisible}
+        onDismiss={() => setModalVisible(false)}
+        footer={
+          <>
+            <Button onClick={() => console.log('save')}>Save</Button>
+            <Button onClick={() => console.log('cancel')}>Cancel</Button>
+          </>
+        }
+      >
+        <NewEntryForm />
+      </Modal>
+    </>
+  )
+}
 
 const H1 = styled.h1`
   margin: 0;
@@ -54,61 +127,6 @@ const ActionIconRemove = styled(ActionIcon)`
     color: #bf616a;
   }
 `
-
-const Entries = props => {
-  const { entries, loading, error, requestEntries } = props
-
-  useEffect(() => {
-    requestEntries()
-  }, [requestEntries])
-
-  let msg = null
-
-  if (loading) {
-    msg = <p>Loading...</p>
-  }
-
-  if (error) {
-    msg = <p style={{ color: 'red' }}>Error loading entries</p>
-  }
-
-  const entriesItems = entries
-    ? entries.map(e => (
-        <ListItem key={e._id}>
-          <span style={{ flex: 1 }}>{e.name}</span>
-          <div>
-            <ActionIconEdit icon={faSearch} />
-            <ActionIconRemove icon={faTrash} />
-          </div>
-        </ListItem>
-      ))
-    : []
-
-  return (
-    <ContentWrapper>
-      <Content
-        style={{
-          display: 'flex',
-          flexDirection: 'row',
-          alignItems: 'center',
-        }}
-      >
-        <H1 style={{ flex: 1 }}>
-          <FontAwesomeIcon icon={faFileAlt} style={{ marginRight: 10 }} />
-          Entries
-        </H1>
-        <Button size="xs">
-          <FontAwesomeIcon icon={faPlus} fixedWidth />
-          Add Entry
-        </Button>
-      </Content>
-      <Content>
-        <List>{entriesItems}</List>
-        {msg}
-      </Content>
-    </ContentWrapper>
-  )
-}
 
 const mapStateToProps = state => {
   return {
